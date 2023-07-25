@@ -18,11 +18,13 @@ def config_login():
 
     root.title('Tela de login')
     root.config(background=bg_bottom)
-    root.iconbitmap('icon_login.ico')
+    root.iconbitmap('img\icon_login.ico')
     root.geometry('240x200+500+250') 
 
 def config_tela2():
-    pass
+    root2 = Tk()
+
+    root2.mainloop()
 
 def labels():
     global input_login, input_senha
