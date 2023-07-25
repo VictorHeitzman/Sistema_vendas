@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import Tk
 import sqlite3
+from tela_register import *
+from models_DB import *
 
 
 def config_login():
@@ -95,12 +97,9 @@ def validate_user():
                                    fg='red',
                                    background=bg_bottom)
         txt_incorrect_user.place(relheight=0.10,relwidth=0.60,relx=0.23,rely=0.55)
-    
-    cursor.close()
-    conexao.close()
 
-def register_user():
-    root.destroy()
+
+
 
 
 root = Tk()
