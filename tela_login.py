@@ -1,16 +1,11 @@
 from tkinter import *
 from tkinter import Tk
 from tela_register import *
-from models_DB import DB
+import sqlite3
 
 
 
-def config_login():
-    global bg_bottom
-    global fg_front
-    global font
-    global font_color
-    global collor_button
+class Tela_Login:
 
     bg_bottom = '#347355'
     fg_front = '#60BF81'
@@ -18,76 +13,99 @@ def config_login():
     font_color = 'white'
     collor_button = '#223240'
 
-    root.title('Tela de login')
-    root.config(background=bg_bottom)
-    root.iconbitmap('img\icon_login.ico')
-    root.geometry('240x200+500+250') 
+
+    def __init__(self) -> None:
+    
+        self.root = Tk()
+        
+        self.config()
+        self.labels()
+
+        self.root.mainloop()
+
+    def config(self):
+        self.root.title('Tela de login')
+        self.root.config(background=self.bg_bottom)
+        self.root.iconbitmap('img\icon_login.ico')
+        self.root.geometry('240x200+500+250')
 
 
-def labels():
+    def labels(self):
 
-#--------------Titulo tela_login----------------- 
-    titulo_login = Label(root,
-                            text='Tela de Login',
-                            font='arial 15',
-                            background=bg_bottom,
-                            fg=font_color)
-    titulo_login.place(relheight=0.12, relwidth=0.50,relx=0.25,rely=0.05)
-#------------------------------------------------ 
-
-
-#--------------------Login------------------------ 
-    txt_login = Label(text='Login',
-                        font=font,
-                        background=bg_bottom,
-                        fg=font_color)
-    txt_login.place(relheight=0.10,relwidth=0.20,relx=0.10,rely=0.25)
-
-    input_login = Entry(root,
-                        background=bg_bottom)
-    input_login.place(relheight=0.10,relwidth=0.50,relx=0.30,rely=0.25)
-#------------------------------------------------
+    #--------------Titulo tela_login----------------- 
+        self.titulo_login = Label(self.root,
+                                text='Tela de Login',
+                                font='arial 15',
+                                background=self.bg_bottom,
+                                fg=self.font_color)
+        self.titulo_login.place(relheight=0.12, relwidth=0.50,relx=0.25,rely=0.05)
+    #------------------------------------------------ 
 
 
-#--------------------senha------------------------ 
-    txt_senha = Label(text='Senha',
-                        font=font,
-                        background=bg_bottom,
-                        fg=font_color)
-    txt_senha.place(relheight=0.10,relwidth=0.20,relx=0.10,rely=0.45)
+    #--------------------Login------------------------ 
+        self.txt_login = Label(text='Login',
+                            font=self.font,
+                            background=self.bg_bottom,
+                            fg=self.font_color)
+        self.txt_login.place(relheight=0.10,relwidth=0.20,relx=0.10,rely=0.25)
 
-    input_senha = Entry(root,
-                        background=bg_bottom)
-    input_senha.place(relheight=0.10,relwidth=0.50,relx=0.30,rely=0.45)
-#------------------------------------------------
-
-
-#-----------------button_login--------------------
-    button_login = Button(root,
-                            text='Login',
-                            font=font,
-                            background=collor_button,
-                            fg=font_color,
-                            command=( input_login.get(),input_senha.get()))
-    button_login.place(relheight=0.13,relwidth=0.20,relx=0.25,rely=0.65)
-#-------------------------------------------------
+        self.input_login = Entry(self.root,
+                            background=self.bg_bottom)
+        self.input_login.place(relheight=0.10,relwidth=0.50,relx=0.30,rely=0.25)
+    #------------------------------------------------
 
 
-#-----------------button_cadastrar--------------------
-    button_cadastrar = Button(root,
-                            text='Cadastrar',
-                            font=font,
-                            background=collor_button,
-                            fg=font_color,
-                            command=register_user)
-    button_cadastrar.place(relheight=0.13,relwidth=0.30,relx=0.50,rely=0.65)
+    #--------------------senha------------------------ 
+        self.txt_senha = Label(text='Senha',
+                            font=self.font,
+                            background=self.bg_bottom,
+                            fg=self.font_color)
+        self.txt_senha.place(relheight=0.10,relwidth=0.20,relx=0.10,rely=0.45)
+
+        self.input_senha = Entry(self.root,
+                            background=self.bg_bottom)
+        self.input_senha.place(relheight=0.10,relwidth=0.50,relx=0.30,rely=0.45)
+    #------------------------------------------------
 
 
+    #-----------------button_login--------------------
+        self.button_login = Button(self.root,
+                                text='Login',
+                                font=self.font,
+                                background=self.collor_button,
+                                fg=self.font_color,
+                                command=self.get_login)
+        self.button_login.place(relheight=0.13,relwidth=0.20,relx=0.25,rely=0.65)
+    #-------------------------------------------------
 
-root = Tk()
-config_login()
-labels()
+
+    #-----------------button_cadastrar--------------------
+        self.button_cadastrar = Button(self.root,
+                                text='Cadastrar',
+                                font=self.font,
+                                background=self.collor_button,
+                                fg=self.font_color,
+                                command=register_user)
+        self.button_cadastrar.place(relheight=0.13,relwidth=0.30,relx=0.50,rely=0.65)
 
 
+    def get_login(self):
+        self.input_login_ = self.input_login.get()
+        self.input_senha_ = self.input_senha.get()
+    
+        global cursor 
 
-root.mainloop()
+        conexao = sqlite3.connect('projeto_compras.db')
+        cursor = conexao.cursor()
+        
+        if cursor:
+            print('conect sucess')
+
+        else: 
+            print('not conect')
+
+        cursor.execute('SELECT * FROM usuarios\
+                    WHERE nome = ? AND senha = ?',(self.input_login_,self.input_senha_))
+        login = cursor.fetchone()
+
+        return print(login)
