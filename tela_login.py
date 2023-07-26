@@ -1,8 +1,8 @@
 from tkinter import *
 from tkinter import Tk
-import sqlite3
 from tela_register import *
-from models_DB import *
+from models_DB import DB
+
 
 
 def config_login():
@@ -23,21 +23,20 @@ def config_login():
     root.iconbitmap('img\icon_login.ico')
     root.geometry('240x200+500+250') 
 
-def config_tela2():
-    root2 = Tk()
-
-    root2.mainloop()
 
 def labels():
-    global input_login, input_senha
 
+#--------------Titulo tela_login----------------- 
     titulo_login = Label(root,
                             text='Tela de Login',
                             font='arial 15',
                             background=bg_bottom,
                             fg=font_color)
     titulo_login.place(relheight=0.12, relwidth=0.50,relx=0.25,rely=0.05)
+#------------------------------------------------ 
 
+
+#--------------------Login------------------------ 
     txt_login = Label(text='Login',
                         font=font,
                         background=bg_bottom,
@@ -47,7 +46,10 @@ def labels():
     input_login = Entry(root,
                         background=bg_bottom)
     input_login.place(relheight=0.10,relwidth=0.50,relx=0.30,rely=0.25)
+#------------------------------------------------
 
+
+#--------------------senha------------------------ 
     txt_senha = Label(text='Senha',
                         font=font,
                         background=bg_bottom,
@@ -57,15 +59,21 @@ def labels():
     input_senha = Entry(root,
                         background=bg_bottom)
     input_senha.place(relheight=0.10,relwidth=0.50,relx=0.30,rely=0.45)
+#------------------------------------------------
 
+
+#-----------------button_login--------------------
     button_login = Button(root,
                             text='Login',
                             font=font,
                             background=collor_button,
                             fg=font_color,
-                            command=validate_user)
+                            command=( input_login.get(),input_senha.get()))
     button_login.place(relheight=0.13,relwidth=0.20,relx=0.25,rely=0.65)
+#-------------------------------------------------
 
+
+#-----------------button_cadastrar--------------------
     button_cadastrar = Button(root,
                             text='Cadastrar',
                             font=font,
@@ -73,32 +81,6 @@ def labels():
                             fg=font_color,
                             command=register_user)
     button_cadastrar.place(relheight=0.13,relwidth=0.30,relx=0.50,rely=0.65)
-
-def validate_user():
-    conexao = sqlite3.connect('projeto_compras.db')
-    cursor = conexao.cursor()
-    
-    cursor.execute('SELECT * FROM usuarios\
-                   WHERE nome = ? AND senha = ?',(input_login.get(),input_senha.get()))
-    
-    login = cursor.fetchone()
-
-    if login:
-        root.destroy()
-
-        root2 = Tk()
-        root2.title('Tela 2')
-        config_tela2
-
-    else:
-        txt_incorrect_user = Label(root,
-                                   text='Login or Password incorrect!',
-                                   font='arial 8',
-                                   fg='red',
-                                   background=bg_bottom)
-        txt_incorrect_user.place(relheight=0.10,relwidth=0.60,relx=0.23,rely=0.55)
-
-
 
 
 
