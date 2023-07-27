@@ -13,22 +13,15 @@ class Tela_Login:
     font_color = 'white'
     collor_button = '#223240'
 
-
-    def __init__(self) -> None:
-    
+    def config(self):
         self.root = Tk()
         
-        self.config()
-        self.labels()
-
-        self.root.mainloop()
-
-    def config(self):
         self.root.title('Tela de login')
         self.root.config(background=self.bg_bottom)
         self.root.iconbitmap('img\icon_login.ico')
         self.root.geometry('240x200+500+250')
-
+   
+        self.root.mainloop()
 
     def labels(self):
 
@@ -85,27 +78,30 @@ class Tela_Login:
                                 font=self.font,
                                 background=self.collor_button,
                                 fg=self.font_color,
-                                command=register_user)
+                                command=Tela_register)
         self.button_cadastrar.place(relheight=0.13,relwidth=0.30,relx=0.50,rely=0.65)
 
+    #----------------------------------
 
     def get_login(self):
         self.input_login_ = self.input_login.get()
         self.input_senha_ = self.input_senha.get()
-    
-        global cursor 
 
-        conexao = sqlite3.connect('projeto_compras.db')
+        conexao = sqlite3.connect('BD\projeto_compras.db')
         cursor = conexao.cursor()
         
-        if cursor:
-            print('conect sucess')
-
-        else: 
-            print('not conect')
-
         cursor.execute('SELECT * FROM usuarios\
                     WHERE nome = ? AND senha = ?',(self.input_login_,self.input_senha_))
         login = cursor.fetchone()
+ 
+        if login:
+            print(login)
+        else:
+            print('user invalid')
+            self.txt_login = Label(text='user invalid',
+                            font=self.font,
+                            background=self.bg_bottom,
+                            fg='red')
+            self.txt_login.place(relheight=0.10,relwidth=0.30,relx=0.38,rely=0.55)
 
-        return print(login)
+        
