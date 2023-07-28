@@ -1,3 +1,3 @@
-from tela_login import Tela_Login
+from models_config import Config
 
-tela_login = Tela_Login()
+tela_login = Config()
