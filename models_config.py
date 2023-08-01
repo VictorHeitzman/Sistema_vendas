@@ -167,5 +167,9 @@ class Config:
         
         if conexao.commit():
             print(f'user {self.input_login.get()} and {self.input_senha.get()} insert sucess')
+
+        cursor.close()
+        conexao.close()        
+
         
 
