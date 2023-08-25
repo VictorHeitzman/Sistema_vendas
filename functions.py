@@ -1,6 +1,5 @@
 from modulos import *
-
-
+from tela_bem_vindo import *
 class Functions():
 
     def conect_db(self) -> None:
@@ -22,6 +21,7 @@ class Functions():
             print(login)
 
             self.root_login.destroy()
+            self.root_bem_vindo = Tela_bem_vindo()
 
         
         else:
@@ -33,3 +33,14 @@ class Functions():
             txt_login.place(relheight=0.10,relwidth=0.30,relx=0.38,rely=0.55)
         
         self.desconect_db()
+
+    def register_user(self):
+        
+        if self.input_user_register.get() != "" or self.input_senha_register.get() != "":
+            
+            self.conect_db()
+            self.cursor.execute('INSERT INTO usuarios VALUES(?,?,?)',(None, self.input_user_register.get(), self.input_senha_register.get()))
+            self.conexao.commit()
+
+        else:
+            print('Usuario Não cadastrado')

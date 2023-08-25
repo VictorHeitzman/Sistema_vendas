@@ -1,7 +1,6 @@
 from modulos import *
-from functions import Functions
 
-class Tela_bem_vindo(Functions):
+class Tela_bem_vindo():
 
     bg_bottom = '#347355'
     fg_front = '#60BF81'
