@@ -110,29 +110,29 @@ class Tela_login(Functions):
 
     #------------------user-------------------
         self.txt_user = Label(self.root_register,
-                            text='user',
+                            text='User',
                             font=self.font,
                             background=self.bg_bottom,
                             fg=self.font_color)
-        self.txt_user.place(relheight=0.10,relwidth=0.20,relx=0.10,rely=0.25)
+        self.txt_user.place(relheight=0.10,relwidth=0.20,relx=0.10,rely=0.20)
 
         self.input_user_register = Entry(self.root_register,
                             background=self.bg_bottom)
-        self.input_user_register.place(relheight=0.10,relwidth=0.50,relx=0.30,rely=0.25)
+        self.input_user_register.place(relheight=0.08,relwidth=0.50,relx=0.30,rely=0.20)
     #-----------------------------------------
 
 
     #------------------senha------------------
         self.txt_senha = Label(self.root_register,
-                            text='password',
+                            text='Password',
                             font=self.font,
                             background=self.bg_bottom,
                             fg=self.font_color)
-        self.txt_senha.place(relheight=0.10,relwidth=0.35,relx=0.01,rely=0.50)
+        self.txt_senha.place(relheight=0.08,relwidth=0.35,relx=0.01,rely=0.35)
 
         self.input_senha_register = Entry(self.root_register,
                             background=self.bg_bottom)
-        self.input_senha_register.place(relheight=0.10,relwidth=0.50,relx=0.30,rely=0.50)
+        self.input_senha_register.place(relheight=0.08,relwidth=0.50,relx=0.30,rely=0.35)
     #-----------------------------------------
 
     #--------------button_salvar--------------
@@ -142,10 +142,32 @@ class Tela_login(Functions):
                                     font=self.font,
                                     fg=self.font_color,
                                     command=self.register_user)
-        self.button_salvar.place(relheight=0.13,relwidth=0.30,relx=0.50,rely=0.65)
+        self.button_salvar.place(relheight=0.08,relwidth=0.20,relx=0.60,rely=0.50)
     #-----------------------------------------
 
+    #--------------button_delete--------------
+        self.button_delete = Button(self.root_register,
+                                    text="Delete",
+                                    background=self.collor_button,
+                                    font=self.font,
+                                    fg=self.font_color,
+                                    command=self.register_user)
+        self.button_delete.place(relheight=0.08,relwidth=0.20,relx=0.30,rely=0.50)
+    #-----------------------------------------
 
+    #--------------Treeview-------------------
+        self.treeview = ttk.Treeview(self.root_register,columns=('col1','col2','col3'))
+        self.treeview.heading('#0',text='Código')
+        self.treeview.heading('#1',text='User')
+        self.treeview.heading('#2',text='Password')
+
+        
+        self.treeview.column('#0',width=100)
+        self.treeview.column('#1',width=100)
+        self.treeview.column('#2',width=100)
+
+        self.treeview.place(relheight=0.30,relwidth=0.96,relx=0.02,rely=0.65)
+    #-----------------------------------------
 
 if __name__ == '__main__':
     app = Tela_login()
