@@ -12,7 +12,6 @@ class Tela_login(Functions):
     font = 'arial 11'
     font_color = 'white'
     collor_button = '#223240'
-#---------------------- instancias ---------------------------
 
     def __init__(self):
         self.root_login = Tk()
@@ -88,6 +87,7 @@ class Tela_login(Functions):
         
         self.config_tela_register()
         self.label_tela_register()
+        self.select_list()
 
     def config_tela_register(self):
         self.root_register = Toplevel()
@@ -151,22 +151,30 @@ class Tela_login(Functions):
                                     background=self.collor_button,
                                     font=self.font,
                                     fg=self.font_color,
-                                    command=self.register_user)
+                                    command=self.delete_user)
         self.button_delete.place(relheight=0.08,relwidth=0.20,relx=0.30,rely=0.50)
     #-----------------------------------------
 
     #--------------Treeview-------------------
         self.treeview = ttk.Treeview(self.root_register,columns=('col1','col2','col3'))
-        self.treeview.heading('#0',text='Código')
-        self.treeview.heading('#1',text='User')
-        self.treeview.heading('#2',text='Password')
-
         
-        self.treeview.column('#0',width=100)
+        self.treeview.heading('#0',text='')
+        self.treeview.heading('#1',text='Código')
+        self.treeview.heading('#2',text='User')
+        self.treeview.heading('#3',text='Password')
+
+        self.treeview.column('#0',width=1)
         self.treeview.column('#1',width=100)
         self.treeview.column('#2',width=100)
+        self.treeview.column('#3',width=100)
+
+        self.scroolList = Scrollbar(self.root_register,
+                                    orient='vertical')
+        self.treeview.config(yscrollcommand=self.scroolList.set)
+        self.scroolList.place(relheight=0.30, relwidth=0.05, relx=0.93,rely=0.65)
 
         self.treeview.place(relheight=0.30,relwidth=0.96,relx=0.02,rely=0.65)
+        self.treeview.bind('<<TreeviewSelect>>', self.double_click)
     #-----------------------------------------
 
 if __name__ == '__main__':
