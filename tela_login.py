@@ -2,7 +2,7 @@ from Modulos.modulos import *
 from Functions.functions_login import Functions
 class Screen_login(Functions):
 #---------------------- var ---------------------------
-    bg_bottom = '#347355'
+    background = '#347355'
     fg_front = '#60BF81'
     font = 'arial 11'
     font_color = 'white'
@@ -17,7 +17,7 @@ class Screen_login(Functions):
 
     def config(self):
         self.root_login.title('Tela de login')
-        self.root_login.config(background=self.bg_bottom)
+        self.root_login.config(background=self.background)
         self.root_login.iconbitmap('img\icon_login.ico')
         self.root_login.geometry('240x200+500+250')
 
@@ -26,7 +26,7 @@ class Screen_login(Functions):
         self.titulo_login = Label(self.root_login,
                             text='Tela de Login',
                             font='arial 15',
-                            background=self.bg_bottom,
+                            background=self.background,
                             fg=self.font_color)
         self.titulo_login.place(relheight=0.12, relwidth=0.50,relx=0.25,rely=0.05)
 #------------------------------------------------ 
@@ -35,12 +35,12 @@ class Screen_login(Functions):
 #--------------------Login------------------------ 
         self.txt_login = Label(text='Login',
                             font=self.font,
-                            background=self.bg_bottom,
+                            background=self.background,
                             fg=self.font_color)
         self.txt_login.place(relheight=0.10,relwidth=0.20,relx=0.10,rely=0.25)
 
         self.input_login = Entry(self.root_login,
-                            background=self.bg_bottom)
+                            background=self.background)
         self.input_login.place(relheight=0.10,relwidth=0.50,relx=0.30,rely=0.25)
     #------------------------------------------------
 
@@ -48,12 +48,12 @@ class Screen_login(Functions):
     #--------------------senha------------------------ 
         self.txt_senha = Label(text='Senha',
                             font=self.font,
-                            background=self.bg_bottom,
+                            background=self.background,
                             fg=self.font_color)
         self.txt_senha.place(relheight=0.10,relwidth=0.20,relx=0.10,rely=0.45)
 
         self.input_senha = Entry(self.root_login,
-                            background=self.bg_bottom)
+                            background=self.background)
         self.input_senha.place(relheight=0.10,relwidth=0.50,relx=0.30,rely=0.45)
     #------------------------------------------------
 
