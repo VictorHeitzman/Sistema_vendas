@@ -12,6 +12,8 @@ class Screen_login(Functions):
         self.root_login = Tk()
         self.config()
         self.labels()
+        self.create_table_user()
+        self.create_table_produtos()
         
         self.root_login.mainloop()
 

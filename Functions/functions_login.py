@@ -2,7 +2,7 @@ from Modulos.modulos import *
 from Functions.function_db import DB
 
 from tela_cadastro_usuario import Screen_cadastre_user
-from tela_cadastro_produtos import Screen_products_cadastre
+from tela_entrar import Screen_open
 
 class Functions(DB):
 
@@ -20,13 +20,13 @@ class Functions(DB):
             print(login)
 
             self.root_login.destroy()
-            Screen_products_cadastre()
+            Screen_open()
 
         else:
             print('user invalid')
             txt_login = Label(text='user invalid',
                             font=self.font,
-                            background=self.bg_bottom,
+                            background=self.background,
                             fg='red')
             txt_login.place(relheight=0.10,relwidth=0.30,relx=0.38,rely=0.55)
         
