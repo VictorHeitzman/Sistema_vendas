@@ -1,12 +1,7 @@
 from Modulos.modulos import *
 from Functions.functions_product_cadastre import Functions
-class Screen_products_cadastre(Functions):
-    
-    background = '#347355'
-    fg_front = '#60BF81'
-    font = 'arial 11'
-    font_color = 'white'
-    collor_button = '#223240'
+from Coolors.style import  Style
+class Screen_products_cadastre(Functions, Style):
 
     def __init__(self) -> None:
 

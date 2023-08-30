@@ -1,13 +1,7 @@
 from Modulos.modulos import *
 from Functions.functions_cadastre_user import Functions
-
-class Screen_cadastre_user(Functions):
-
-    bg_bottom = '#347355'
-    fg_front = '#60BF81'
-    font = 'arial 11'
-    font_color = 'white'
-    collor_button = '#223240'
+from Coolors.style import  Style
+class Screen_cadastre_user(Functions, Style):
 
     def __init__(self):
           

@@ -1,5 +1,5 @@
 from Modulos.modulos import *
-from Functions.function_db import DB
+from Functions.functions_db import DB
 
 from tela_cadastro_usuario import Screen_cadastre_user
 from tela_entrar import Screen_open

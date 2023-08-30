@@ -1,13 +1,7 @@
 from Modulos.modulos import *
 from tela_cadastro_produtos import Screen_products_cadastre
-
-class Screen_open():
-
-    background = '#347355'
-    fg_front = '#60BF81'
-    font = 'arial 11'
-    font_color = 'white'
-    collor_button = '#223240'
+from Coolors.style import  Style
+class Screen_open(Style):
 
     def __init__(self) -> None:
         self.open = Tk()
