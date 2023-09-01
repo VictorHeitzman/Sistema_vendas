@@ -12,8 +12,9 @@ class Screen_cadastre_user(Functions, Style):
     def config(self):
         self.root_register = Toplevel()
         self.root_register.title("Tela de Cadastro")
+        self.root_register.iconbitmap('img\icon_login.ico')
         self.root_register.geometry('400x400+450+150')
-        self.root_register.config(background=self.bg_bottom)
+        self.root_register.config(background=self.background)
  
         self.root_register.focus_force()
         self.root_register.grab_set()
@@ -23,7 +24,7 @@ class Screen_cadastre_user(Functions, Style):
         self.txt_title = Label(self.root_register,
                                 text="register user",
                                 font='arial 15',
-                                background=self.bg_bottom,
+                                background=self.background,
                                 fg=self.font_color)
         self.txt_title.place(relheight=0.12, relwidth=0.50,relx=0.25,rely=0.05)
     #-----------------------------------------
@@ -32,12 +33,12 @@ class Screen_cadastre_user(Functions, Style):
         self.txt_user = Label(self.root_register,
                             text='User',
                             font=self.font,
-                            background=self.bg_bottom,
+                            background=self.background,
                             fg=self.font_color)
         self.txt_user.place(relheight=0.10,relwidth=0.20,relx=0.10,rely=0.20)
 
         self.input_user_register = Entry(self.root_register,
-                            background=self.bg_bottom)
+                            background=self.background)
         self.input_user_register.place(relheight=0.08,relwidth=0.50,relx=0.30,rely=0.20)
     #-----------------------------------------
 
@@ -46,12 +47,12 @@ class Screen_cadastre_user(Functions, Style):
         self.txt_senha = Label(self.root_register,
                             text='Password',
                             font=self.font,
-                            background=self.bg_bottom,
+                            background=self.background,
                             fg=self.font_color)
         self.txt_senha.place(relheight=0.08,relwidth=0.35,relx=0.01,rely=0.35)
 
         self.input_senha_register = Entry(self.root_register,
-                            background=self.bg_bottom)
+                            background=self.background)
         self.input_senha_register.place(relheight=0.08,relwidth=0.50,relx=0.30,rely=0.35)
     #-----------------------------------------
 

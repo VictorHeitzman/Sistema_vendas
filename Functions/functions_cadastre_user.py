@@ -10,7 +10,7 @@ class Functions(DB):
     def register_user(self):
         self.name = self.input_user_register.get()
         self.passw = self.input_senha_register.get()
-        if self.name != "" or self.passw != "":
+        if self.name != "" and self.passw != "":
             
             self.conect_db()
             self.cursor.execute("""INSERT INTO 
@@ -25,6 +25,7 @@ class Functions(DB):
             self.clear_inputs_register()
 
         else:
+            messagebox.showerror('Aviso','Preencha todos os valores')
             print('Usuario Não cadastrado')
         
     def select_list(self):
@@ -37,7 +38,7 @@ class Functions(DB):
         for i in lista:
             self.treeview.insert("",END, values=i)
 
-        self.desconect_db    
+        self.desconect_db()
 
     def delete_user(self):
 

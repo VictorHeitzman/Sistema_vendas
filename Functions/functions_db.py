@@ -26,11 +26,10 @@ class DB:
         self.conect_db()
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS produtos (
                             ID	INTEGER,
-                            nome_produto TEXT NOT NULL,
                             descricao_produto	TEXT NOT NULL,
                             preco_compra REAL NOT NULL,
                             preco_venda REAL NOT NULL,
-                            PRIMARY KEY("ID" AUTOINCREMENT)
+                            PRIMARY KEY("ID")
                         )"""
         )
         self.conexao.commit()

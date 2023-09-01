@@ -1,12 +1,14 @@
 from Modulos.modulos import *
 from Functions.functions_login import Functions
 from Coolors.style import  Style
+
 class Screen_login(Functions, Style):
 #---------------------- var ---------------------------
     
 
     def __init__(self):
         self.root_login = Tk()
+        
         self.config()
         self.labels()
         self.create_table_user()
@@ -52,7 +54,8 @@ class Screen_login(Functions, Style):
         self.txt_senha.place(relheight=0.10,relwidth=0.20,relx=0.10,rely=0.45)
 
         self.input_senha = Entry(self.root_login,
-                            background=self.background)
+                            background=self.background,
+                            show='*')
         self.input_senha.place(relheight=0.10,relwidth=0.50,relx=0.30,rely=0.45)
     #------------------------------------------------
 

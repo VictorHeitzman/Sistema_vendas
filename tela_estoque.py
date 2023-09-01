@@ -12,9 +12,9 @@ class Screen_open(Style):
         self.open.mainloop()
 
     def config(self):
-        self.open.title('Cadastro produtos')
+        self.open.title('Estoque')
         self.open.config(background=self.background)
-        self.open.iconbitmap('img\product.ico')
+        self.open.iconbitmap('img\icon_estoque.ico')
         self.open.resizable(False,False)
         self.open.geometry('800x600+250+50')
         # self.open.attributes('-fullscreen',True)
