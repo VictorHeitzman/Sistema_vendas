@@ -4,11 +4,14 @@ from Coolors.style import  Style
 class Screen_cadastre_user(Functions, Style):
 
     def __init__(self):
+
+
         
         self.config()
         self.labels()
         self.select_list()
         
+
 
     def config(self):
         self.root_register = Toplevel()

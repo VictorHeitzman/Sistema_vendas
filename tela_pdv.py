@@ -8,15 +8,13 @@ class Screen_pdv(Functions,Style):
     def __init__(self):
         
         self.root_pdv = Tk()
-
         self.config()
         self.labels()
 
         self.root_pdv.mainloop()
-
     def config(self):
 
-        # self.root_stock = Toplevel()
+        # self.root_pdv = Toplevel()
         self.root_pdv.title('PDV')
         self.root_pdv.config(background=self.background)
         self.root_pdv.iconbitmap('img\icon_pdv.ico')
@@ -24,92 +22,96 @@ class Screen_pdv(Functions,Style):
         self.root_pdv.geometry('800x600+250+50')
         # self.stock.attributes('-fullscreen',True)
 
-        # self.root_stock.focus_force()
-        # self.root_stock.grab_set()
+        # self.root_pdv.focus_force()
+        # self.root_pdv.grab_set()
     
     def labels(self):
+
         # --------------------------- Código --------------------------------------------------------------
-        self.txt_codigo = Label(text='Código:',background=self.background,font=self.font,fg=self.font_color)
+        self.txt_codigo = Label(self.root_pdv, text='Código:',background=self.background,font=self.font,fg=self.font_color)
         self.txt_codigo.place(relheight=0.05,relwidth=0.06,relx=0.01,rely=0.10)
 
-        self.input_codigo = Entry()
+        self.input_codigo = Entry(self.root_pdv, )
         self.input_codigo.place(relheight=0.05,relwidth=0.58,relx=0.11,rely=0.10)
 
         self.input_codigo.bind('<Return>',self.press_enter)
         # -----------------------------------------------------------------------------------------------
 
         # --------------------------- Descrição --------------------------------------------------------------
-        self.txt_descricao = Label(text='Descrição:',background=self.background,font=self.font,fg=self.font_color)
+        self.txt_descricao = Label(self.root_pdv, text='Descrição:',background=self.background,font=self.font,fg=self.font_color)
         self.txt_descricao.place(relheight=0.05,relwidth=0.09,relx=0.01,rely=0.17)
 
-        self.input_descricao = Entry()
+        self.input_descricao = Entry(self.root_pdv, )
         self.input_descricao.place(relheight=0.05,relwidth=0.58,relx=0.11,rely=0.17)
         # -----------------------------------------------------------------------------------------------
 
         # --------------------------- quantidade --------------------------------------------------------------
-        self.txt_quantidade = Label(text='Quantidade:',background=self.background,font=self.font,fg=self.font_color)
+        self.txt_quantidade = Label(self.root_pdv, text='Quantidade:',background=self.background,font=self.font,fg=self.font_color)
         self.txt_quantidade.place(relheight=0.05,relwidth=0.10,relx=0.01,rely=0.24)
 
-        self.input_quantidade = Entry()
+        self.input_quantidade = Entry(self.root_pdv, )
         self.input_quantidade.place(relheight=0.05,relwidth=0.10,relx=0.11,rely=0.24)
         
         self.input_quantidade.bind('<Return>',self.press_enter)
         # -----------------------------------------------------------------------------------------------
         
         # --------------------------- preço unitario --------------------------------------------------------------
-        self.txt_preco_unitario = Label(text='Preço Unitario:',background=self.background,font=self.font,fg=self.font_color)
+        self.txt_preco_unitario = Label(self.root_pdv, text='Preço Unitario:',background=self.background,font=self.font,fg=self.font_color)
         self.txt_preco_unitario.place(relheight=0.05,relwidth=0.13,relx=0.22,rely=0.24)
 
-        self.input_preco_unitario = Entry()
+        self.input_preco_unitario = Entry(self.root_pdv, )
         self.input_preco_unitario.place(relheight=0.05,relwidth=0.10,relx=0.35,rely=0.24)
         self.input_preco_unitario.insert(END,0)
         # -----------------------------------------------------------------------------------------------
         
         # --------------------------- total produto --------------------------------------------------------------
-        self.txt_total_produto = Label(text='Total Produto:',background=self.background,font=self.font,fg=self.font_color)
+        self.txt_total_produto = Label(self.root_pdv, text='Total Produto:',background=self.background,font=self.font,fg=self.font_color)
         self.txt_total_produto.place(relheight=0.05,relwidth=0.13,relx=0.46,rely=0.24)
 
-        self.input_total_produto = Entry()
+        self.input_total_produto = Entry(self.root_pdv, )
         self.input_total_produto.place(relheight=0.05,relwidth=0.10,relx=0.59,rely=0.24)
         self.input_total_produto.insert(END,0)
         # -----------------------------------------------------------------------------------------------
 
         # --------------------------- Valor acréscimo --------------------------------------------------------------
-        self.txt_valor_acrescimo = Label(text='Valor acréscimo:',background=self.background,font=self.font,fg=self.font_color)
+        self.txt_valor_acrescimo = Label(self.root_pdv, text='Valor acréscimo:',background=self.background,font=self.font,fg=self.font_color)
         self.txt_valor_acrescimo.place(relheight=0.05,relwidth=0.14,relx=0.72,rely=0.30)
 
-        self.input_valor_acrescimo = Entry()
+        self.input_valor_acrescimo = Entry(self.root_pdv, )
         self.input_valor_acrescimo.place(relheight=0.05,relwidth=0.10,relx=0.86,rely=0.30)
         self.input_valor_acrescimo.insert(END,0)
+
+        self.input_valor_acrescimo.bind('<Return>',self.soma_acrescimo)
         # -----------------------------------------------------------------------------------------------
 
-        # --------------------------- Valor acréscimo --------------------------------------------------------------
-        self.txt_total_desconto = Label(text='Valor desconto:',background=self.background,font=self.font,fg=self.font_color)
+        # --------------------------- Valor desconto --------------------------------------------------------------
+        self.txt_total_desconto = Label(self.root_pdv, text='Valor desconto:',background=self.background,font=self.font,fg=self.font_color)
         self.txt_total_desconto.place(relheight=0.05,relwidth=0.14,relx=0.72,rely=0.37)
 
-        self.input_valor_desconto = Entry()
+        self.input_valor_desconto = Entry(self.root_pdv, )
         self.input_valor_desconto.place(relheight=0.05,relwidth=0.10,relx=0.86,rely=0.37)
         self.input_valor_desconto.insert(END,0)
+        self.input_valor_desconto.bind('<Return>',self.soma_desconto)
         # -----------------------------------------------------------------------------------------------
 
         # --------------------------- Forma de Pagamento --------------------------------------------------------------
         self.opcoes = ['Dinheiro','Cartão','Pix']
 
-        self.txt_forma_pagamento = Label(text='Forma de Pagamento',background=self.background,font=self.font,fg=self.font_color)
+        self.txt_forma_pagamento = Label(self.root_pdv, text='Forma de Pagamento',background=self.background,font=self.font,fg=self.font_color)
         self.txt_forma_pagamento.place(relheight=0.05,relwidth=0.18,relx=0.72,rely=0.44)
 
-        self.input_forma_pagamento = ttk.Combobox(values=self.opcoes)
+        self.input_forma_pagamento = ttk.Combobox(self.root_pdv, values=self.opcoes)
         self.input_forma_pagamento.set(self.opcoes[0])
         self.input_forma_pagamento.place(relheight=0.05,relwidth=0.18,relx=0.72,rely=0.49)
         # -----------------------------------------------------------------------------------------------
         
         # --------------------------- Button Excluir --------------------------------------------------------------
-        self.button_excluir = Button(text='Excluir',background=self.collor_button,font=self.font,fg=self.font_color,command=self.excluir)
+        self.button_excluir = Button(self.root_pdv, text='Excluir',background=self.collor_button,font=self.font,fg=self.font_color,command=self.excluir)
         self.button_excluir.place(relheight=0.05,relwidth=0.10,relx=0.72,rely=0.60)
         # -----------------------------------------------------------------------------------------------
         
         # --------------------------- Button Finalizar --------------------------------------------------------------
-        self.button_excluir = Button(text='Finalizar',background=self.collor_button,font=self.font,fg=self.font_color,command=self.finalizar)
+        self.button_excluir = Button(self.root_pdv, text='Finalizar',background=self.collor_button,font=self.font,fg=self.font_color,command=self.finalizar)
         self.button_excluir.place(relheight=0.05,relwidth=0.10,relx=0.72,rely=0.66)
         # -----------------------------------------------------------------------------------------------
         
@@ -131,7 +133,7 @@ class Screen_pdv(Functions,Style):
 
         # --------------------------- treeview --------------------------------------------------------------
         self.columns = ('codigo','descricao','preco','quantidade','total')
-        self.treeview_pdv = ttk.Treeview(columns=self.columns,show='headings')
+        self.treeview_pdv = ttk.Treeview(self.root_pdv, columns=self.columns,show='headings')
 
         self.treeview_pdv.heading('#1',text='Código')
         self.treeview_pdv.heading('#2',text='Descrição')

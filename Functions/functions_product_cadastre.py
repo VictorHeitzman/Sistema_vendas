@@ -75,7 +75,7 @@ class Functions(DB):
 
         print(f'id {self.codigo}')
 
-        if self.codigo != "" and self.descricao != "" and self.preco_compra != "" and self.preco_venda != "":
+        if self.codigo != "" and self.descricao != "":
             
             self.cursor.execute("""DELETE FROM produtos WHERE id = (?)""",(self.codigo,))
             self.conexao.commit()
@@ -93,13 +93,15 @@ class Functions(DB):
         self.desconect_db()
     
     def get_values(self):
+        try:
+            self.codigo = int(self.input_codigo.get())
+            self.descricao = str(self.input_descricao.get()).upper()
+            # self.preco_compra = self.input_preco_compra.get()
+            # self.preco_venda = self.input_preco_venda.get()
 
-        self.codigo = self.input_codigo.get()
-        self.descricao = str(self.input_descricao.get()).upper()
-        # self.preco_compra = self.input_preco_compra.get()
-        # self.preco_venda = self.input_preco_venda.get()
-
-        print(f'id {self.codigo}')
-        print(f'descrição {self.descricao}')
-        # print(f'preço compra {self.preco_compra}')
-        # print(f'preço venda {self.preco_venda}')
+            print(f'id {self.codigo}')
+            print(f'descrição {self.descricao}')
+            # print(f'preço compra {self.preco_compra}')
+            # print(f'preço venda {self.preco_venda}')
+        except:
+            messagebox.showerror('Aviso','Valores invalidos!')

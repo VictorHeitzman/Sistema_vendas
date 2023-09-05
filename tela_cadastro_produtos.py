@@ -5,13 +5,13 @@ class Screen_products_cadastre(Functions, Style):
 
     def __init__(self) -> None:
 
-        self.root_produto = Tk()
+
 
         self.config()
         self.labels()
         self.select_treeview_produtos()
 
-        self.root_produto.mainloop()
+
 
     def config(self):
         self.root_products_cadastre = Toplevel()

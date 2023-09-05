@@ -5,12 +5,14 @@ class Screen_stock(Functions, Style):
 
     def __init__(self) -> None:
 
-
+        self.root_stock = Tk()
+        
         self.config()
         # self.frames()
         self.labels()
         self.select_treeview_estoque()
         
+        self.root_stock.mainloop()
 
     def config(self):
         self.root_stock = Toplevel()
