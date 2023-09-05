@@ -4,24 +4,25 @@ from Coolors.style import  Style
 class Screen_products_cadastre(Functions, Style):
 
     def __init__(self) -> None:
-        self.root_products_cadastre = Tk()
-        
+
+        self.root_produto = Tk()
+
         self.config()
         self.labels()
         self.select_treeview_produtos()
-        
-        self.root_products_cadastre.mainloop()
+
+        self.root_produto.mainloop()
 
     def config(self):
-        # self.root_products_cadastre = Toplevel()
+        self.root_products_cadastre = Toplevel()
         self.root_products_cadastre.title('Cadastro produtos')
         self.root_products_cadastre.config(background=self.background)
         self.root_products_cadastre.iconbitmap('img\icon_produto.ico')
         self.root_products_cadastre.resizable(False,False)
         self.root_products_cadastre.geometry('600x500+250+50')
         
-        # self.root_products_cadastre.focus_force()
-        # self.root_products_cadastre.grab_set()
+        self.root_products_cadastre.focus_force()
+        self.root_products_cadastre.grab_set()
     
     def labels(self):
         # -------------------- Produto ------------------------------------
@@ -51,29 +52,29 @@ class Screen_products_cadastre(Functions, Style):
         # -------------------------------------------------------------------
 
         # -------------------- preço compra ------------------------------------
-        self.txt_preco_compra = Label(self.root_products_cadastre,
-                                      text='Preço de compra:',
-                                 bg=self.background,
-                                 fg='White',
-                                 font=self.font)
-        self.txt_preco_compra.place(relheight=0.05,relwidth=0.20,rely=0.24,relx=0.03)
+        # self.txt_preco_compra = Label(self.root_products_cadastre,
+        #                               text='Preço de compra:',
+        #                          bg=self.background,
+        #                          fg='White',
+        #                          font=self.font)
+        # self.txt_preco_compra.place(relheight=0.05,relwidth=0.20,rely=0.24,relx=0.03)
         
-        self.input_preco_compra = Entry(self.root_products_cadastre,
-                                 font=self.font)
-        self.input_preco_compra.place(relheight=0.05,relwidth=0.25,rely=0.24,relx=0.35)
-        # -------------------------------------------------------------------
+        # self.input_preco_compra = Entry(self.root_products_cadastre,
+        #                          font=self.font)
+        # self.input_preco_compra.place(relheight=0.05,relwidth=0.25,rely=0.24,relx=0.35)
+        # # -------------------------------------------------------------------
 
-        # -------------------- preço venda ------------------------------------
-        self.txt_preco_venda = Label(self.root_products_cadastre,
-                                     text='Preço de venda:',
-                                 bg=self.background,
-                                 fg='White',
-                                 font=self.font)
-        self.txt_preco_venda.place(relheight=0.05,relwidth=0.20,rely=0.31,relx=0.03)
+        # # -------------------- preço venda ------------------------------------
+        # self.txt_preco_venda = Label(self.root_products_cadastre,
+        #                              text='Preço de venda:',
+        #                          bg=self.background,
+        #                          fg='White',
+        #                          font=self.font)
+        # self.txt_preco_venda.place(relheight=0.05,relwidth=0.20,rely=0.31,relx=0.03)
         
-        self.input_preco_venda = Entry(self.root_products_cadastre,
-                                 font=self.font)
-        self.input_preco_venda.place(relheight=0.05,relwidth=0.25,rely=0.31,relx=0.35)
+        # self.input_preco_venda = Entry(self.root_products_cadastre,
+        #                          font=self.font)
+        # self.input_preco_venda.place(relheight=0.05,relwidth=0.25,rely=0.31,relx=0.35)
         # -------------------------------------------------------------------
 
         # -------------------- Button salvar ------------------------------------
@@ -108,7 +109,7 @@ class Screen_products_cadastre(Functions, Style):
 
         self.treeview_produto.place(relheight=0.40,relwidth=0.90,rely=0.45,relx=0.03)
 
-        self.treeview_produto.bind('<<TreeviewSelect>>',self.double_click_treeview_product)
+        self.treeview_produto.bind('<Double-1>',self.double_click_treeview_product)
         # -------------------------------------------------------------------
 
 

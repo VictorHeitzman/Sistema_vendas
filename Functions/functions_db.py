@@ -9,30 +9,63 @@ class DB:
     def desconect_db(self):     
         self.conexao.close()        
     
-    def create_table_user(self):
+    def create_databases(self):
         self.conect_db()
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS usuarios (
-                            ID	INTEGER,
+                            id	INTEGER,
                             nome	TEXT,
                             senha	TEXT,
                             PRIMARY KEY("ID" AUTOINCREMENT)
-                        )"""
+                        );"""
         )
-        self.conexao.commit()
-        if self.conexao.commit(): print('DB user created')
-        self.desconect_db()
-    
-    def create_table_produtos(self):
-        self.conect_db()
+        print('DB user created')
+
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS produtos (
-                            ID	INTEGER,
+                            id	INTEGER,
                             descricao_produto	TEXT NOT NULL,
-                            preco_compra REAL NOT NULL,
-                            preco_venda REAL NOT NULL,
+                            ultimo_preco_compra REAL,
+							ultimo_preco_venda REAL,
                             PRIMARY KEY("ID")
+                        );"""
+        )
+
+        print('DB product created')
+
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS estoque (
+                            id integer not NULL,
+                            id_produto integer NOT NULL,
+                            descricao text NOT NULL,
+                            quantidade_entrada integer,
+                            quantidade_saida integer,
+                            estoque integer,
+                            total_entrada real,
+                            total_saida real,
+                            saldo_estoque real,
+                            PRIMARY	KEY(id),
+                            FOREIGN key(id_produto) REFERENCES produtos(id)
+                        );"""
+        )
+
+
+        print('DB estoque created')
+
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS transacoes (
+                            id INTEGER NOT NULL,
+                            id_produto INTEGER NOT NULL,
+                            descricao TEXT NOT NULL,
+                            data_registro Date NOT NULL,
+                            tipo TEXT NOT NULL,
+                            quantidade INTEGER NOT NULL,
+                            preco_entrada REAL NOT NULL,
+                            preco_saida REAL NOT NULL,
+                            total REAL NOT NULL,
+                            PRIMARY KEY(id),
+                            FOREIGN KEY(id_produto) REFERENCES produtos(id)
                         )"""
         )
+
         self.conexao.commit()
-        if self.conexao.commit(): print('DB product created')
-        self.desconect_db()
+        print('DB transacoes created')
+        self.desconect_db()            
+
         

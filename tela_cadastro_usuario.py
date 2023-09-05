@@ -4,10 +4,11 @@ from Coolors.style import  Style
 class Screen_cadastre_user(Functions, Style):
 
     def __init__(self):
-          
+        
         self.config()
         self.labels()
         self.select_list()
+        
 
     def config(self):
         self.root_register = Toplevel()
@@ -95,7 +96,7 @@ class Screen_cadastre_user(Functions, Style):
         self.scroolList.place(relheight=0.30, relwidth=0.05, relx=0.93,rely=0.65)
 
         self.treeview.place(relheight=0.30,relwidth=0.96,relx=0.02,rely=0.65)
-        self.treeview.bind('<<TreeviewSelect>>', self.double_click)
+        self.treeview.bind('<Double-1>', self.double_click)
     #-----------------------------------------
 
 

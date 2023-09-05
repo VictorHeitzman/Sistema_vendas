@@ -11,8 +11,8 @@ class Screen_login(Functions, Style):
         
         self.config()
         self.labels()
-        self.create_table_user()
-        self.create_table_produtos()
+        
+        self.create_databases()
         
         self.root_login.mainloop()
 
