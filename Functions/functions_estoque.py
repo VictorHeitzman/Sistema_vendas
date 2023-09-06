@@ -48,11 +48,14 @@ class Functions(DB,Style):
 
         try:
             if self.input_quantidade.get() != "" and self.input_descricao.get() != "" and self.input_codigo.get() != "" and self.input_preco_compra.get() != "" and self.input_preco_venda.get() != "" and self.input_data.get() != "":
+                
 
-                self.total = self.preco_compra * self.quantidade
+                self.total = round(float(self.preco_compra * self.quantidade), 2)
+                print(self.total)
+                
                 self.conect_db()
                 
-                self.cursor.execute("""INSERT INTO transacoes VALUES(null,(?),(?),(?),'entrada',(?),(?),(?),(?));""",(self.codigo,self.descricao,self.data,self.quantidade,self.preco_compra,self.preco_venda,self.total))
+                self.cursor.execute("""INSERT INTO transacoes VALUES(null,(?),(?),(?),'entrada',(?),(?),(?),(?),null);""",(self.codigo,self.descricao,self.data,self.quantidade,round(self.preco_compra,2),round(self.preco_venda,2),round(self.total,2)))
 
                 self.conexao.commit()
 
@@ -74,8 +77,20 @@ class Functions(DB,Style):
         self.conect_db()
 
         # iNSERINDO ESTOQUE
-        self.cursor.execute("""UPDATE estoque SET estoque = estoque + (?) WHERE id_produto = (?);""",(self.quantidade,self.codigo))
+        self.cursor.execute("""UPDATE estoque SET estoque = estoque + (?) WHERE id_produto = (?);""",
+                            (self.quantidade,self.codigo))
 
+        self.conexao.commit()
+
+        self.desconect_db()
+        
+        self.atualiza_somatorio_estoque()
+
+        self.setando_ultimo_valor_em_produtos()
+        
+    def atualiza_somatorio_estoque(self):
+        
+        self.conect_db()
         # INSERINDO QUANTIDADE DE ENTRADA
         self.cursor.execute("""UPDATE estoque 
                             SET quantidade_entrada = (SELECT sum(quantidade) FROM transacoes where id_produto = ? and tipo = 'entrada') 
@@ -98,13 +113,11 @@ class Functions(DB,Style):
         
         # INSERINDO SALDO ESTOQUE
         self.cursor.execute("""UPDATE estoque
-                            SET saldo_estoque = (SELECT (total_entrada) - (total_saida)  FROM estoque where id_produto = (?))
+                            SET saldo_estoque = (SELECT round((total_entrada) - (total_saida))  FROM estoque where id_produto = (?))
                             WHERE id_produto = (?);""",(self.codigo, self.codigo))
 
         #  ENVIANDO
         self.conexao.commit()
-
-        self.setando_ultimo_valor_em_produtos()
 
         self.desconect_db()
 
@@ -160,7 +173,7 @@ class Functions(DB,Style):
         
         lista = list(map(list,data))
 
-        columns = ('id','id_produto','descicao','data_registro','tipo','quantidade','preco_entrada','preco_saida','total')
+        columns = ('id','id_produto','descicao','data_registro','tipo','quantidade','preco_entrada','preco_saida','total','pagamento')
         df = pd.DataFrame(lista,columns=columns)
 
         df.to_csv(f'Transacoes/transacoes_{date.today()}.csv',index=None, decimal=',')

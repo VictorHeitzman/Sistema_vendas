@@ -7,14 +7,15 @@ class Screen_pdv(Functions,Style):
 
     def __init__(self):
         
-        self.root_pdv = Tk()
+        # self.root_pdv = Tk()
         self.config()
         self.labels()
+        self.produtos = []
 
-        self.root_pdv.mainloop()
+        # self.root_pdv.mainloop()
     def config(self):
 
-        # self.root_pdv = Toplevel()
+        self.root_pdv = Toplevel()
         self.root_pdv.title('PDV')
         self.root_pdv.config(background=self.background)
         self.root_pdv.iconbitmap('img\icon_pdv.ico')
@@ -22,8 +23,8 @@ class Screen_pdv(Functions,Style):
         self.root_pdv.geometry('800x600+250+50')
         # self.stock.attributes('-fullscreen',True)
 
-        # self.root_pdv.focus_force()
-        # self.root_pdv.grab_set()
+        self.root_pdv.focus_force()
+        self.root_pdv.grab_set()
     
     def labels(self):
 

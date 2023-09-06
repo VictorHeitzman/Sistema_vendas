@@ -14,7 +14,7 @@ class Functions(DB):
                                 (self.codigo, self.descricao))
             print('produto inserido na tabela produtos')
 
-            self.cursor.execute("""INSERT INTO estoque (id_produto, descricao) VALUES ((?),(?))""",(self.codigo,self.descricao))
+            self.cursor.execute("""INSERT INTO estoque (id_produto, descricao, estoque) VALUES ((?),(?), 0)""",(self.codigo,self.descricao))
             print('produto inserido na tabela estoque')
             
             self.conexao.commit()

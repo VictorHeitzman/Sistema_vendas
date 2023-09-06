@@ -59,6 +59,7 @@ class DB:
                             preco_entrada REAL NOT NULL,
                             preco_saida REAL NOT NULL,
                             total REAL NOT NULL,
+                            pagamento TEXT,
                             PRIMARY KEY(id),
                             FOREIGN KEY(id_produto) REFERENCES produtos(id)
                         )"""
