@@ -5,3 +5,4 @@ from tkinter import messagebox
 from datetime import date as date
 from tkcalendar import Calendar, DateEntry  
 import pandas as pd
+from sqlite3 import Error as erro_sql

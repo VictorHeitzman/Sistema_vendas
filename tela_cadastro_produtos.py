@@ -36,6 +36,8 @@ class Screen_products_cadastre(Functions, Style):
         self.input_codigo = Entry(self.root_products_cadastre,
                                  font=self.font)
         self.input_codigo.place(relheight=0.05,relwidth=0.60,rely=0.10,relx=0.35)
+
+        self.input_codigo.focus()
         # -------------------------------------------------------------------
 
         # -------------------- descricao ------------------------------------

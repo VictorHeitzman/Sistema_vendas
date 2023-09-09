@@ -2,11 +2,12 @@ from Modulos.modulos import *
 from Functions.functions_db import DB 
 from Coolors.style import *
 
+
+
 class Functions(DB,Style):
 
     def __init__(self) -> None:
         self.produtos = []
-    
 
     def get_values(self):
 
@@ -32,22 +33,28 @@ class Functions(DB,Style):
             self.data = str(date.today().strftime('%d/%m/%Y'))
 
     def double_click(self, event):
-        self.clear_input()
+        
+        # self.input_codigo.config(state='disabled')
 
-        self.treeview_pdv.selection()
 
-        for selected_item in self.treeview_pdv.selection():
+            self.treeview_pdv.selection()
 
-            tupla = self.treeview_pdv.item(selected_item,'values')
-            print(tupla)
-            self.input_codigo.insert(END,tupla[0])
-            self.input_descricao.insert(END,tupla[1])
-            self.input_preco_unitario.insert(END,tupla[2])
-            self.input_quantidade.insert(END,tupla[3])
-            self.input_total_produto.insert(END,tupla[4])
+            for selected_item in self.treeview_pdv.selection():
 
-            self.input_valor_acrescimo.insert(END,0)
-            self.input_valor_desconto.insert(END,0)     
+                tupla = self.treeview_pdv.item(selected_item,'values')
+
+                self.codigo = int(tupla[0])
+                self.descricao = tupla[1]
+                self.preco_unitario = float(tupla[2])
+                self.quantidade = int(tupla[3])
+                self.total_produto = float(tupla[4])
+    
+            resp = messagebox.askyesno('Aviso','Deseja cancelar o produto da transação?')
+            if resp == True:
+                    self.excluir()
+            else:
+                self.root_pdv.focus_force()
+                self.root_pdv.grab_set()
 
     def finalizar(self):
         self.set_produto()
@@ -59,27 +66,27 @@ class Functions(DB,Style):
         self.txt_valor.config(text='0')
 
     def excluir(self):
-        if self.input_codigo.get() != '':
-            
-            select = self.treeview_pdv.selection()[0]
-            
-            self.get_values()
-            
-            self.treeview_pdv.delete(select)
 
-            self.subtotal -= round(self.total_produto,2)
+        # if self.input_codigo != '':
+    
+        select = self.treeview_pdv.selection()[0]
+        
+        self.treeview_pdv.delete(select)
 
-            self.txt_valor.config(text=str(self.subtotal))
+        self.subtotal -= round(self.total_produto,2)
 
-            self.inserir_estoque()
+        self.txt_valor.config(text=str(round(self.subtotal,2)))
 
-            self.clear_input()
-            self.insert_values()
+        self.inserir_estoque()
 
-        else:
-            messagebox.showerror('Aviso','Selecione um registro!')
+        self.clear_input()
+        self.insert_values()
 
-    def press_enter(self, event):
+        # else:
+        #     messagebox.showerror('Aviso','Selecione um registro!')
+
+    def press_enter(self, var, index, mode ):
+        
         try:
         
             self.get_values()
@@ -87,12 +94,16 @@ class Functions(DB,Style):
             self.verifica_estoque()
 
             self.tem_produto()
-        
+
         except ValueError:
-            self.clear_input()
-            self.insert_values()
-            messagebox.showinfo('Aviso','Um ou mais dados incorretos')    
-    
+            messagebox.showinfo('Aviso','Um ou mais dados incorretos')
+            self.root_pdv.focus_force()
+            self.root_pdv.grab_set()
+        
+        
+        self.clear_input()
+        self.insert_values()
+            
     def busca_produto(self):
 
         self.conect_db()
@@ -124,7 +135,7 @@ class Functions(DB,Style):
             self.dados_select[0].append(self.quantidade)
             self.dados_select[0].append(self.total_produto)
             
-            print(f'valor adcionado: {self.dados_select}')
+            print(f'\nvalor adcionado: {self.dados_select}')
             
             self.treeview_pdv.insert('',END,values=(self.dados_select[0][0],
                                                     self.dados_select[0][1],
@@ -138,12 +149,15 @@ class Functions(DB,Style):
             self.input_total_produto.insert(END,self.dados_select[0][5])
 
             self.criar_tupla_para_insert()
+
+            self.clear_input()
+            self.insert_values()
             
         except:
-                    messagebox.showerror('Aviso','Verificar estoque')
-        self.clear_input()
-        self.insert_values()
-
+            messagebox.showerror('Aviso','Verificar estoque')
+            self.root_pdv.focus_force()
+            self.root_pdv.grab_set()
+        
     def criar_tupla_para_insert(self):
         
         self.get_values()
@@ -160,7 +174,7 @@ class Functions(DB,Style):
 
         self.produtos.append(tupla)
         
-        print(f'transacao: {self.produtos}\n')
+        print(f'\ntransacao: {self.produtos}\n')
     
     def set_produto(self):
         
@@ -186,6 +200,7 @@ class Functions(DB,Style):
         self.insert_values()
 
     def soma_acrescimo(self, event):
+        
         try:
             self.valor_acrescimo = float(self.input_valor_acrescimo.get())
             self.subtotal += self.valor_acrescimo
@@ -195,6 +210,8 @@ class Functions(DB,Style):
             messagebox.showerror('Aviso','Valor de acrescimo invalido.')
         self.clear_input()
         self.insert_values()
+        self.root_pdv.focus_force()
+        self.root_pdv.grab_set()
     
     def soma_desconto(self, event):
         try:
@@ -204,10 +221,20 @@ class Functions(DB,Style):
             self.treeview_pdv.insert('',END,values=(00,'DESCONTO',self.valor_desconto,0,self.valor_desconto))
         except:
             messagebox.showerror('Aviso','Valor de desconto invalido.')
- 
+        
+        self.root_pdv.focus_force()
+        self.root_pdv.grab_set()
         self.clear_input()
         self.insert_values()
 
+    def clear_input_delete_pro(self):
+
+        self.input_codigo_delete_prod.delete(0,END)
+        self.input_descricao_delete_prod.delete(0,END)
+        self.input_quantidade_delete_prod.delete(0,END)
+        self.input_preco_unitario_delete_prod.delete(0,END)
+        self.input_total_produto_delete_prod.delete(0,END)
+  
     def clear_input(self):
 
         self.input_codigo.delete(0,END)
@@ -223,6 +250,7 @@ class Functions(DB,Style):
         self.input_total_produto.insert(END,0)
         self.input_valor_acrescimo.insert(END,0)
         self.input_valor_desconto.insert(END,0)
+        self.input_descricao.delete(0,END)
 
     def verifica_estoque(self):
     
@@ -242,11 +270,15 @@ class Functions(DB,Style):
                 messagebox.showinfo('Aviso','Produto sem estoque')
                 self.clear_input()
                 self.insert_values()
+                self.root_pdv.focus_force()
+                self.root_pdv.grab_set()
             else: 
                 self.busca_produto()
                 self.retira_estoque()
         
         except IndexError:
+            self.root_pdv.focus_force()
+            self.root_pdv.grab_set()
             messagebox.showerror('Aviso','Produto não encontrado')
             
     def retira_estoque(self):
@@ -262,7 +294,7 @@ class Functions(DB,Style):
         self.desconect_db()
 
     def inserir_estoque(self):
-        self.get_values()
+        # self.get_values()
 
         print(self.quantidade,',',self.codigo)
         
@@ -283,35 +315,122 @@ class Functions(DB,Style):
 
         self.atualiza_somatorio_estoque()
 
+        self.clear_input()
+        self.insert_values()
+
     def atualiza_somatorio_estoque(self):
         
         self.conect_db()
-        # INSERINDO QUANTIDADE DE ENTRADA
-        self.cursor.execute("""UPDATE estoque 
-                            SET quantidade_entrada = (SELECT sum(quantidade) FROM transacoes where id_produto = ? and tipo = 'entrada') 
-                            WHERE id_produto = ?;""",(self.codigo, self.codigo))
+        self.cursor.execute("""SELECT id_produto FROM estoque;""")
+        query = self.cursor.fetchall()
+        # self.conexao.commit()
+        # self.desconect_db()
 
-        # INSERINDO QUANTIDADE DE SAIDA
-        self.cursor.execute("""UPDATE estoque
-                            SET quantidade_saida = (SELECT sum(quantidade) FROM transacoes where id_produto = (?) and tipo = 'saida')
-                            WHERE id_produto = (?);""",(self.codigo, self.codigo))
-        
-        # INSERINDO TOTAL DE ENTRADA
-        self.cursor.execute("""UPDATE estoque
-                            SET total_entrada = (SELECT sum(total) FROM transacoes where id_produto = (?) and tipo = 'entrada')
-                            WHERE id_produto = (?);""",(self.codigo, self.codigo))
+        # self.conect_db()
+        for p in query:
 
-        # INSERINDO TOTAL DE SAIDA
-        self.cursor.execute("""UPDATE estoque
-                            SET total_saida = (SELECT sum(total) FROM transacoes where id_produto = (?) and tipo = 'saida')
-                            WHERE id_produto = (?);""",(self.codigo, self.codigo))
-        
-        # INSERINDO SALDO ESTOQUE
-        self.cursor.execute("""UPDATE estoque
-                            SET saldo_estoque = (SELECT round((total_entrada) - (total_saida))  FROM estoque where id_produto = (?))
-                            WHERE id_produto = (?);""",(self.codigo, self.codigo))
+            print(f'\npassando por produto: {p[0]}')
 
-        #  ENVIANDO
+            # INSERINDO QUANTIDADE DE ENTRADA
+            self.cursor.execute("""UPDATE estoque 
+                                SET quantidade_entrada = (SELECT sum(quantidade) FROM transacoes where id_produto = ? and tipo = 'entrada') 
+                                WHERE id_produto = ?;""",(p[0],p[0]))
+
+            # INSERINDO QUANTIDADE DE SAIDA
+            self.cursor.execute("""UPDATE estoque
+                                SET quantidade_saida = (SELECT sum(quantidade) FROM transacoes where id_produto = (?) and tipo = 'saida')
+                                WHERE id_produto = (?);""",(p[0],p[0]))
+            
+            # INSERINDO TOTAL DE ENTRADA
+            self.cursor.execute("""UPDATE estoque
+                                SET total_entrada = (SELECT sum(total) FROM transacoes where id_produto = (?) and tipo = 'entrada')
+                                WHERE id_produto = (?);""",(p[0],p[0]))
+
+            # INSERINDO TOTAL DE SAIDA
+            self.cursor.execute("""UPDATE estoque
+                                SET total_saida = (SELECT sum(total) FROM transacoes where id_produto = (?) and tipo = 'saida')
+                                WHERE id_produto = (?);""",(p[0],p[0]))
+            
+            # INSERINDO SALDO ESTOQUE
+            self.cursor.execute("""UPDATE estoque
+                                SET saldo_estoque = (SELECT round((total_entrada) - (total_saida))  FROM estoque where id_produto = (?))
+                                WHERE id_produto = (?);""",(p[0],p[0]))
+
+            #  ENVIANDO
+            
         self.conexao.commit()
 
         self.desconect_db()   
+
+        print('\nEstoque atualizado.')
+
+    def selecionar_produto(self):
+
+        self.treeview_selecao_produto.delete(*self.treeview_selecao_produto.get_children())
+
+        self.conect_db()
+        
+        self.query = self.cursor.execute("""SELECT * FROM produtos""")
+        self.conexao.commit()
+
+        for produto in self.query:
+            self.treeview_selecao_produto.insert('',END,values=(produto[0],produto[1]))
+        
+        self.desconect_db()
+    
+    def double_click_selec_produtos(self,event):
+
+        self.treeview_selecao_produto.selection()
+
+        for i in self.treeview_selecao_produto.selection():
+            produto = self.treeview_selecao_produto.item(i,'values')
+        
+        self.codigo = produto[0]
+        self.descricao = produto[1]
+
+        self.input_codigo.insert(END,self.codigo)
+        # self.input_descricao.insert(END, self.descricao)
+
+        self.root_selecao_produto.destroy()
+    
+    def chamar_produtos(self, event):
+    
+        self.root_selecao_produto = Toplevel()
+        self.root_selecao_produto.title('PDV')
+        self.root_selecao_produto.config(background=self.background)
+        self.root_selecao_produto.iconbitmap('img\icon_pdv.ico')
+        self.root_selecao_produto.resizable(False,False)
+        self.root_selecao_produto.geometry('500x400+250+50')
+        # self.stock.attributes('-fullscreen',True)
+        self.root_selecao_produto.grab_set()
+        self.root_selecao_produto.focus_force()
+
+        columns = ('codigo','decricao')
+        self.treeview_selecao_produto = ttk.Treeview(self.root_selecao_produto, columns=columns, show='headings')
+
+        self.treeview_selecao_produto.heading('#1',text='Codigo')
+        self.treeview_selecao_produto.heading('#2',text='Descrição')
+
+        self.treeview_selecao_produto.column('#1',width=50)
+        self.treeview_selecao_produto.column('#2',width=50)
+
+        self.scroollist = Scrollbar(self.root_selecao_produto,orient='vertical')
+
+        self.treeview_selecao_produto.config(yscrollcommand=self.scroollist.set)
+        
+        self.scroollist.place(relheight=0.90,relwidth=0.04,relx=0.91,rely=0.03)
+        self.treeview_selecao_produto.place(relheight=0.90,relwidth=0.90,relx=0.03,rely=0.03)
+
+        self.treeview_selecao_produto.bind('<Double-1>',self.double_click_selec_produtos)       
+
+        self.selecionar_produto()
+
+    def quit(self):
+        
+        children = self.treeview_pdv.get_children()
+        if len(children) > 0:
+            messagebox.showwarning("Aviso", "Você possui produtos em transação.\nCancele os produtos para sair do PDV!")
+            self.root_pdv.focus_force()
+            self.root_pdv.grab_set()
+        else:
+            self.root_pdv.destroy()

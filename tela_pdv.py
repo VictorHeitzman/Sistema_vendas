@@ -13,6 +13,7 @@ class Screen_pdv(Functions,Style):
         self.produtos = []
 
         # self.root_pdv.mainloop()
+    
     def config(self):
 
         self.root_pdv = Toplevel()
@@ -21,10 +22,13 @@ class Screen_pdv(Functions,Style):
         self.root_pdv.iconbitmap('img\icon_pdv.ico')
         self.root_pdv.resizable(False,False)
         self.root_pdv.geometry('800x600+250+50')
-        # self.stock.attributes('-fullscreen',True)
+        # self.root_pdv.attributes('-fullscreen',True)
 
         self.root_pdv.focus_force()
         self.root_pdv.grab_set()
+
+        self.root_pdv.protocol("WM_DELETE_WINDOW",self.quit)
+
     
     def labels(self):
 
@@ -32,10 +36,19 @@ class Screen_pdv(Functions,Style):
         self.txt_codigo = Label(self.root_pdv, text='Código:',background=self.background,font=self.font,fg=self.font_color)
         self.txt_codigo.place(relheight=0.05,relwidth=0.06,relx=0.01,rely=0.10)
 
-        self.input_codigo = Entry(self.root_pdv, )
+        self.return_cod = StringVar()
+                
+        self.input_codigo = Entry(self.root_pdv, textvariable=self.return_cod)
         self.input_codigo.place(relheight=0.05,relwidth=0.58,relx=0.11,rely=0.10)
+        self.input_codigo.focus()
 
-        self.input_codigo.bind('<Return>',self.press_enter)
+        self.return_cod.trace_add('write', self.press_enter)
+
+        self.input_codigo.bind('<Double-1>',self.chamar_produtos)
+        # self.input_codigo.bind('<Return>',self.press_enter)
+        
+
+        
         # -----------------------------------------------------------------------------------------------
 
         # --------------------------- Descrição --------------------------------------------------------------
@@ -52,8 +65,9 @@ class Screen_pdv(Functions,Style):
 
         self.input_quantidade = Entry(self.root_pdv, )
         self.input_quantidade.place(relheight=0.05,relwidth=0.10,relx=0.11,rely=0.24)
-        
+
         self.input_quantidade.bind('<Return>',self.press_enter)
+
         # -----------------------------------------------------------------------------------------------
         
         # --------------------------- preço unitario --------------------------------------------------------------
@@ -105,15 +119,15 @@ class Screen_pdv(Functions,Style):
         self.input_forma_pagamento.set(self.opcoes[0])
         self.input_forma_pagamento.place(relheight=0.05,relwidth=0.18,relx=0.72,rely=0.49)
         # -----------------------------------------------------------------------------------------------
-        
-        # --------------------------- Button Excluir --------------------------------------------------------------
-        self.button_excluir = Button(self.root_pdv, text='Excluir',background=self.collor_button,font=self.font,fg=self.font_color,command=self.excluir)
-        self.button_excluir.place(relheight=0.05,relwidth=0.10,relx=0.72,rely=0.60)
+
+        # # --------------------------- Button Excluir --------------------------------------------------------------
+        # self.button_excluir = Button(self.root_pdv, text='Excluir',background=self.collor_button,font=self.font,fg=self.font_color,command=self.quit)
+        # self.button_excluir.place(relheight=0.05,relwidth=0.10,relx=0.72,rely=0.60)
         # -----------------------------------------------------------------------------------------------
         
         # --------------------------- Button Finalizar --------------------------------------------------------------
-        self.button_excluir = Button(self.root_pdv, text='Finalizar',background=self.collor_button,font=self.font,fg=self.font_color,command=self.finalizar)
-        self.button_excluir.place(relheight=0.05,relwidth=0.10,relx=0.72,rely=0.66)
+        self.button_finalizar = Button(self.root_pdv, text='Finalizar',background=self.collor_button,font=self.font,fg=self.font_color,command=self.finalizar)
+        self.button_finalizar.place(relheight=0.05,relwidth=0.10,relx=0.72,rely=0.66)
         # -----------------------------------------------------------------------------------------------
         
         # --------------------------- SubTotal --------------------------------------------------------------
@@ -156,6 +170,6 @@ class Screen_pdv(Functions,Style):
 
         self.treeview_pdv.bind('<Double-1>',self.double_click)
         # -----------------------------------------------------------------------------------------------
-        
+
 if __name__ == '__main__':
     root = Screen_pdv()

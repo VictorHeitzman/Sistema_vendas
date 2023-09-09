@@ -65,6 +65,15 @@ class DB:
                         )"""
         )
 
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS	clientes(
+                            id INT NOT NULL,
+                            nome TEXT NOT NULL,
+                            endereco TEXT NOT NULL,
+                            telefone INT NOT NULL,
+                            PRIMARY KEY(id)
+                        );"""
+        )
+
         self.conexao.commit()
         print('DB transacoes created')
         self.desconect_db()            

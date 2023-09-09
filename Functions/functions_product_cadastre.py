@@ -6,29 +6,33 @@ class Functions(DB):
     def insert_product(self):
 
         self.get_values()
-
-        if self.codigo != "" and self.descricao != "":
+        try:
+            if self.codigo != "" and self.descricao != "":
                 
-            self.conect_db()
-            self.cursor.execute("""INSERT INTO produtos(id, descricao_produto) VALUES (?,?);""",
-                                (self.codigo, self.descricao))
-            print('produto inserido na tabela produtos')
+                self.conect_db()
+                self.cursor.execute("""INSERT INTO produtos(id, descricao_produto) VALUES (?,?);""",
+                                    (self.codigo, self.descricao))
+                print('produto inserido na tabela produtos')
 
-            self.cursor.execute("""INSERT INTO estoque (id_produto, descricao, estoque) VALUES ((?),(?), 0)""",(self.codigo,self.descricao))
-            print('produto inserido na tabela estoque')
-            
-            self.conexao.commit()
-            
-            self.select_treeview_produtos()
+                self.cursor.execute("""INSERT INTO estoque (id_produto, descricao, estoque) VALUES ((?),(?), 0)""",(self.codigo,self.descricao))
+                print('produto inserido na tabela estoque')
+                
+                self.conexao.commit()
+                
+                self.select_treeview_produtos()
 
-            self.clear_inputs()
+                self.clear_inputs()
 
-        
+                self.desconect_db()
+
+                self.input_codigo.focus()
+            else:
+                    messagebox.showerror('Aviso', 'Preencha todos os valores')
+                    print('Produto Não cadastrado')
+        except erro_sql:
             self.desconect_db()
-        else:
-            messagebox.showerror('Aviso', 'Preencha todos os valores')
-            print('Produto Não cadastrado')
-
+            messagebox.showerror('Aviso','Código já cadastrado')  
+    
     def clear_inputs(self):
         self.input_codigo.delete(0,END)
         self.input_descricao.delete(0,END)
@@ -64,8 +68,6 @@ class Functions(DB):
             # self.input_preco_venda.insert(END,col4)
 
         self.get_values()
-
-
 
     def delete_product(self):
 

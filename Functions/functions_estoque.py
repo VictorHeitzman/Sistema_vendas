@@ -14,7 +14,10 @@ class Functions(DB,Style):
             self.descricao = str(self.input_descricao.get()).upper()
             self.preco_venda = float(str(self.input_preco_venda.get()).replace(',','.'))
             self.preco_compra = float(str(self.input_preco_compra.get()).replace(',','.'))
-            self.quantidade = int(self.input_quantidade.get())
+            
+            if self.input_quantidade.get() == "":
+                self.quantidade = 0
+            else: self.quantidade = int(self.input_quantidade.get())
 
             print(f'codigo: {self.codigo}\ndescrição: {self.descricao}\npreco venda: {self.preco_venda}\npreco compra: {self.preco_compra}\nquantidade: {self.quantidade}\ndata: {self.data}')
         except ValueError:
@@ -47,7 +50,7 @@ class Functions(DB,Style):
         self.getValues()
 
         try:
-            if self.input_quantidade.get() != "" and self.input_descricao.get() != "" and self.input_codigo.get() != "" and self.input_preco_compra.get() != "" and self.input_preco_venda.get() != "" and self.input_data.get() != "":
+            if self.input_descricao.get() != "" and self.input_codigo.get() != "" and self.input_preco_compra.get() != "" and self.input_preco_venda.get() != "" and self.input_data.get() != "":
                 
 
                 self.total = round(float(self.preco_compra * self.quantidade), 2)
@@ -91,30 +94,37 @@ class Functions(DB,Style):
     def atualiza_somatorio_estoque(self):
         
         self.conect_db()
+
+        self.cursor.execute("""SELECT id_produto FROM estoque;""")
+        query = self.cursor.fetchall()
+        print(query)
+
+        for p in query:
+            print(f'\natuzalizando estoque {p[0]}')
         # INSERINDO QUANTIDADE DE ENTRADA
-        self.cursor.execute("""UPDATE estoque 
-                            SET quantidade_entrada = (SELECT sum(quantidade) FROM transacoes where id_produto = ? and tipo = 'entrada') 
-                            WHERE id_produto = ?;""",(self.codigo, self.codigo))
+            self.cursor.execute("""UPDATE estoque 
+                                SET quantidade_entrada = (SELECT sum(quantidade) FROM transacoes where id_produto = ? and tipo = 'entrada') 
+                                WHERE id_produto = ?;""",(p[0],p[0]))
 
-        # INSERINDO QUANTIDADE DE SAIDA
-        self.cursor.execute("""UPDATE estoque
-                            SET quantidade_saida = (SELECT sum(quantidade) FROM transacoes where id_produto = (?) and tipo = 'saida')
-                            WHERE id_produto = (?);""",(self.codigo, self.codigo))
-        
-        # INSERINDO TOTAL DE ENTRADA
-        self.cursor.execute("""UPDATE estoque
-                            SET total_entrada = (SELECT sum(total) FROM transacoes where id_produto = (?) and tipo = 'entrada')
-                            WHERE id_produto = (?);""",(self.codigo, self.codigo))
+            # INSERINDO QUANTIDADE DE SAIDA
+            self.cursor.execute("""UPDATE estoque
+                                SET quantidade_saida = (SELECT sum(quantidade) FROM transacoes where id_produto = (?) and tipo = 'saida')
+                                WHERE id_produto = (?);""",(p[0],p[0]))
+            
+            # INSERINDO TOTAL DE ENTRADA
+            self.cursor.execute("""UPDATE estoque
+                                SET total_entrada = (SELECT sum(total) FROM transacoes where id_produto = (?) and tipo = 'entrada')
+                                WHERE id_produto = (?);""",(p[0],p[0]))
 
-        # INSERINDO TOTAL DE SAIDA
-        self.cursor.execute("""UPDATE estoque
-                            SET total_saida = (SELECT sum(total) FROM transacoes where id_produto = (?) and tipo = 'saida')
-                            WHERE id_produto = (?);""",(self.codigo, self.codigo))
-        
-        # INSERINDO SALDO ESTOQUE
-        self.cursor.execute("""UPDATE estoque
-                            SET saldo_estoque = (SELECT round((total_entrada) - (total_saida))  FROM estoque where id_produto = (?))
-                            WHERE id_produto = (?);""",(self.codigo, self.codigo))
+            # INSERINDO TOTAL DE SAIDA
+            self.cursor.execute("""UPDATE estoque
+                                SET total_saida = (SELECT sum(total) FROM transacoes where id_produto = (?) and tipo = 'saida')
+                                WHERE id_produto = (?);""",(p[0],p[0]))
+            
+            # INSERINDO SALDO ESTOQUE
+            self.cursor.execute("""UPDATE estoque
+                                SET saldo_estoque = (SELECT round((total_entrada) - (total_saida))  FROM estoque where id_produto = (?))
+                                WHERE id_produto = (?);""",(p[0],p[0]))
 
         #  ENVIANDO
         self.conexao.commit()

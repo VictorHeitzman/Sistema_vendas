@@ -1,8 +1,6 @@
 from Modulos.modulos import *
-from Coolors.style import  Style
+from Coolors.style import Style
 from Functions.functions_menu import Functions
-
-
 
 class Screen_menu(Functions,Style):
     
@@ -41,7 +39,7 @@ class Screen_menu(Functions,Style):
         self.icone_pdv = Button(self.root_menu, text="Nota Fiscal", font=self.font_img,fg='White', compound='bottom',image=self.nf,background=self.background,bd=0)
         self.icone_pdv.place(relheight=0.40,relwidth=0.40,relx=0.55,rely=0.55)
 
-
+    
 
 if __name__ == '__main__':
     root = Screen_menu()

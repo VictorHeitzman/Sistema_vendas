@@ -32,20 +32,6 @@ class Screen_stock(Functions, Style):
     
     def labels(self):
 
-        # self.txt_tipo = Label(self.frame_tipo,text='Tipo transação',font=self.font_color,background=self.background)
-        # self.txt_tipo.pack(anchor='center')
-
-# --------------------------- Radio Button --------------------------------------------
-
-        # self.tipo = StringVar()
-
-        # self.label_frame = Radiobutton(self.frame_tipo,text='entrada',value='entrada',background=self.background, variable=self.tipo, command=self.getValues)
-        # self.label_frame.place(relx=0.05,rely=0.45)
-
-        # self.label_frame = Radiobutton(self.frame_tipo,text='saida',value='saida',background=self.background, variable=self.tipo, command=self.getValues)
-        # self.label_frame.place(relx=0.50,rely=0.45)
-# --------------------------- -------------  --------------------------------------------
-
 # ----------------------------------- descricao ---------------------------------------
         self.txt_codigo = Label(self.root_stock,text='Código:',background=self.background,fg=self.font_color,font=self.font)
         self.txt_codigo.place(relheight=0.04,relwidth=0.15,relx=0.03,rely=0.05)
