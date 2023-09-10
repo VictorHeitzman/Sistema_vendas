@@ -64,15 +64,17 @@ class DB:
                             FOREIGN KEY(id_produto) REFERENCES produtos(id)
                         )"""
         )
+        print('DB transacoes created')
 
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS	clientes(
-                            id INT NOT NULL,
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS clientes(
+                            id INTEGER,
                             nome TEXT NOT NULL,
-                            endereco TEXT NOT NULL,
-                            telefone INT NOT NULL,
+                            endereco TEXT ,
+                            telefone INT,
                             PRIMARY KEY(id)
                         );"""
         )
+        print('DB clientes created')
 
         self.conexao.commit()
         print('DB transacoes created')
