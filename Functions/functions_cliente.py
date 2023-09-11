@@ -7,7 +7,7 @@ from Coolors.style import *
 class Functions(DB,Style):
     def get_values(self):
 
-        self.id = int(self.input_id.get())
+        self.id = str(self.input_id.get())
         self.nome = str(self.input_nome.get()).upper()
         self.endereco = str(self.input_endereco.get()).upper()
         self.telefone = int(self.input_telefone.get())
@@ -16,15 +16,14 @@ class Functions(DB,Style):
         print(f'Endereço: {self.endereco}')
         print(f'Telefone: {self.telefone}')
 
-
     def salvar(self):
 
-        try:
+        # try:
         
             self.get_values()
             self.conect_db()
 
-            self.cursor.execute("""INSERT INTO clientes VALUES (null,(?),(?),(?))""",(self.nome,self.endereco,self.telefone))
+            self.cursor.execute("""INSERT INTO clientes VALUES (null,(?),(?),(?));""",(self.nome,self.endereco,self.telefone))
             
             self.conexao.commit()
 
@@ -33,8 +32,10 @@ class Functions(DB,Style):
             self.clear_inputs()
 
             self.insert_treeview()
-        except:
-            messagebox.showerror('Aviso','Valide os campos!')
+
+            self.insert_devedores()
+        # except:
+        #     messagebox.showerror('Aviso','Valide os campos!')
         
     def double_click(self,event):
 
@@ -101,6 +102,7 @@ class Functions(DB,Style):
             self.insert_treeview()
         except:
             messagebox.showerror('Aviso','Valide os campos!')
+    
     def excluir(self):
         try:
             self.get_values()
@@ -109,9 +111,12 @@ class Functions(DB,Style):
             
             self.cursor.execute("""DELETE FROM clientes
                                 WHERE id = (?)""",(self.id,))
-            self.conexao.commit()
-
             print('\nUsuario excluido!')
+
+            self.cursor.execute("""DELETE FROM devedores
+                                WHERE id_cliente = (?)""",(self.id,))
+            print('\napagado da tabela devedores')
+            self.conexao.commit()
 
             self.desconect_db()
 
@@ -120,3 +125,15 @@ class Functions(DB,Style):
             self.insert_treeview()
         except:
             messagebox.showerror('Aviso','Valide os campos!')
+
+    def insert_devedores(self):
+        
+        self.conect_db()
+
+        self.cursor.execute("""SELECT MAX(id) FROM clientes""")
+        max_id = self.cursor.fetchall()
+        
+        self.cursor.execute("""INSERT INTO devedores (id_cliente,nome,endereco,telefone) VALUES ((?),(?),(?),(?));""",(max_id[0][0],self.nome,self.endereco,self.telefone))
+        self.conexao.commit()
+        print('\nregistrado na tabela devedores')   
+        self.desconect_db()
