@@ -7,18 +7,18 @@ class Screen_cadastro_cliente(Functions,Style):
 
     def __init__(self):
         
-        self.root_cadastro_cliente = Tk()
+        # self.root_cadastro_cliente = Tk()
         
         self.config()
         self.labels()
         self.insert_treeview()
 
 
-        self.root_cadastro_cliente.mainloop()
+        # self.root_cadastro_cliente.mainloop()
     
     def config(self):
 
-        # self.root_cadastro_cliente = Toplevel()
+        self.root_cadastro_cliente = Toplevel()
         self.root_cadastro_cliente.title('Cadastro de clientes')
         self.root_cadastro_cliente.config(background=self.background)
         self.root_cadastro_cliente.iconbitmap('img\icon_cliente.ico')
@@ -26,8 +26,8 @@ class Screen_cadastro_cliente(Functions,Style):
         self.root_cadastro_cliente.geometry('400x400+250+50')
         # self.root_cadastro_cliente.attributes('-fullscreen',True)
 
-        # self.root_cadastro_cliente.focus_force()
-        # self.root_cadastro_cliente.grab_set()
+        self.root_cadastro_cliente.focus_force()
+        self.root_cadastro_cliente.grab_set()
 
 
     

@@ -133,7 +133,7 @@ class Functions(DB,Style):
         self.cursor.execute("""SELECT MAX(id) FROM clientes""")
         max_id = self.cursor.fetchall()
         
-        self.cursor.execute("""INSERT INTO devedores (id_cliente,nome,endereco,telefone) VALUES ((?),(?),(?),(?));""",(max_id[0][0],self.nome,self.endereco,self.telefone))
+        self.cursor.execute("""INSERT INTO devedores (id_cliente,nome,endereco,telefone,valor) VALUES ((?),(?),(?),(?),(?));""",(max_id[0][0],self.nome,self.endereco,self.telefone, 0))
         self.conexao.commit()
         print('\nregistrado na tabela devedores')   
         self.desconect_db()

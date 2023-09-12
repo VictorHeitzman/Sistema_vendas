@@ -6,16 +6,16 @@ class Screen_controle_cliente(Functions,Style):
     
     
     def __init__(self) -> None:
-        self.root_controle_cliente = Tk()
+        # self.root_controle_cliente = Tk()
 
         self.config()
         self.labels()
         self.select_treeview()
 
-        self.root_controle_cliente.mainloop()
+        # self.root_controle_cliente.mainloop()
     
     def config(self):
-        # self.root_stock = Toplevel()
+        self.root_controle_cliente = Toplevel()
         self.root_controle_cliente.title('Controle de Clientes')
         self.root_controle_cliente.config(background=self.background)
         self.root_controle_cliente.iconbitmap('img\icon_cliente.ico')
@@ -23,8 +23,8 @@ class Screen_controle_cliente(Functions,Style):
         self.root_controle_cliente.geometry('700x600+250+50')
         # self.stock.attributes('-fullscreen',True)
 
-        # self.root_stock.focus_force()
-        # self.root_stock.grab_set()
+        self.root_controle_cliente.focus_force()
+        self.root_controle_cliente.grab_set()
 
     def labels(self):
         self.txt_nome = Label(self.root_controle_cliente,background=self.background,fg=self.font_color,font='arial 20',text='Nome')
@@ -51,29 +51,30 @@ class Screen_controle_cliente(Functions,Style):
         self.button_salvar = Button(self.root_controle_cliente,text='Salvar',background=self.collor_button,fg=self.font_color,command=self.salvar)
         self.button_salvar.place(relheight=0.05,relwidth=0.10,relx=0.15,rely=0.50)
 
-        columns = ('id','nome','endereco','numero','tipo','valor')
+        self.txt_devedores = Label(self.root_controle_cliente,text='Devedores',font=self.font,background=self.background,fg=self.font_color)
+        self.txt_devedores.place(relheight=0.05,relwidth=0.10,relx=0.03,rely=0.55)
+
+        columns = ('id','nome','endereco','numero','valor')
         self.treeview_cliente = ttk.Treeview(self.root_controle_cliente,columns=columns, show='headings')
 
         self.treeview_cliente.heading('#1',text='ID')
         self.treeview_cliente.heading('#2',text='Nome')
         self.treeview_cliente.heading('#3',text='Endereço')
         self.treeview_cliente.heading('#4',text='Numero')
-        self.treeview_cliente.heading('#5',text='Tipo')
-        self.treeview_cliente.heading('#6',text='Valor')
+        self.treeview_cliente.heading('#5',text='Valor Devendo')
 
         self.treeview_cliente.column('#1',width=1)
         self.treeview_cliente.column('#2',width=50)
         self.treeview_cliente.column('#3',width=50)
         self.treeview_cliente.column('#4',width=50)
-        self.treeview_cliente.column('#5',width=50)
-        self.treeview_cliente.column('#6',width=30)
+        self.treeview_cliente.column('#5',width=40)
 
         self.scrollist = Scrollbar(self.root_controle_cliente)
         self.treeview_cliente.config(yscrollcommand=self.scrollist)
 
-        self.scrollist.place(relheight=0.40,relwidth=0.03,relx=0.91,rely=0.57)
+        self.scrollist.place(relheight=0.35,relwidth=0.03,relx=0.91,rely=0.60)
 
-        self.treeview_cliente.place(relheight=0.40,relwidth=0.90,relx=0.03,rely=0.57)
+        self.treeview_cliente.place(relheight=0.35,relwidth=0.90,relx=0.03,rely=0.60)
         self.treeview_cliente.bind('<Double-1>',self.double_click)
 
 
