@@ -3,7 +3,7 @@ from Modulos.modulos import *
 class DB:
     
     def conect_db(self) -> None:
-        self.conexao = sqlite3.connect('data_base/projeto_compras.db')
+        self.conexao = sqlite3.connect('data_base_sqlite/projeto_compras.db')
         self.cursor = self.conexao.cursor()
 
     def desconect_db(self):     
