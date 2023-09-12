@@ -3,7 +3,7 @@ from Modulos.modulos import *
 class DB:
     
     def conect_db(self) -> None:
-        self.conexao = sqlite3.connect('BD/projeto_compras.db')
+        self.conexao = sqlite3.connect('data_base/projeto_compras.db')
         self.cursor = self.conexao.cursor()
 
     def desconect_db(self):     
@@ -28,7 +28,6 @@ class DB:
                             PRIMARY KEY("ID")
                         );"""
         )
-
         print('DB product created')
 
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS estoque (
@@ -45,8 +44,6 @@ class DB:
                             FOREIGN key(id_produto) REFERENCES produtos(id)
                         );"""
         )
-
-
         print('DB estoque created')
 
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS transacoes (
@@ -76,8 +73,38 @@ class DB:
         )
         print('DB clientes created')
 
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS devedores (
+                                id INTEGER,
+                                id_cliente INTEGER,
+                                nome TEXT,
+                                endereco TEXT,
+                                telefone INTEGER,
+                                tipo TEXT,
+                                valor REAL,
+                                data date,
+                                PRIMARY KEY(id),
+                                FOREIGN KEY (id_cliente) REFERENCES clientes(id)
+                            );"""
+        )
+        print('DB devedores created')
+
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS transacoes_devedores (
+                                id INTEGER,
+                                id_cliente INTEGER,
+                                nome TEXT,
+                                endereco TEXT,
+                                telefone INTEGER,
+                                tipo TEXT,
+                                valor REAL,
+                                data date,
+                                PRIMARY KEY(id),
+                                FOREIGN KEY (id_cliente) REFERENCES clientes(id)
+                            );"""
+        )
+        print('DB transacoes_devedores created')
+
         self.conexao.commit()
-        print('DB transacoes created')
+
         self.desconect_db()            
 
         
