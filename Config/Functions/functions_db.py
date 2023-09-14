@@ -103,6 +103,21 @@ class DB:
         )
         print('DB transacoes_devedores created')
 
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS nf (
+                                id INTEGER,
+                                numero_nf INTEGER,
+                                fornecedor TEXT,
+                                data_emissao date,
+                                data_vencimento date,
+                                valor_produto REAL,
+                                valor_nota REAL,
+                                descricao TEXT,
+                                PRIMARY KEY(id)
+                            );"""
+        )
+        print('DB nf created')
+        
+
         self.conexao.commit()
 
         self.desconect_db()            
