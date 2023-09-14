@@ -36,7 +36,7 @@ class Functions(DB):
                             WHERE numero_nf = (?)""",(self.numero,))
         data = self.cursor.fetchall()
 
-        if data != '':
+        if len(data) != 0:
             self.input_data_vencimento.config(state='normal')
             self.input_data_emissao.config(state='normal')
             
