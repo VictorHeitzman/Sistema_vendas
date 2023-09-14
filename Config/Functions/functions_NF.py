@@ -10,7 +10,7 @@ class Functions(DB):
         
         self.cursor.execute("""INSERT INTO nf VALUES(null,(?),(?),(?),(?),(?),(?),(?));""",
                             (self.numero,
-                             self.descricao,
+                             self.fornecedor,
                              self.data_emissao,
                              self.data_vencimento,
                              self.valor_produto,
@@ -21,10 +21,43 @@ class Functions(DB):
         self.desconect_db()
 
         self.clear_inputs()
+
+        self.carregarSomas()
+
         messagebox.showerror('Aviso','Nf Salva')
     
     def enter(self, event):
-        pass
+
+        self.numero = self.input_numero.get()
+
+        self.conect_db()
+
+        self.cursor.execute("""SELECT * FROM nf
+                            WHERE numero_nf = (?)""",(self.numero,))
+        data = self.cursor.fetchall()
+
+        if data != '':
+            self.input_data_vencimento.config(state='normal')
+            self.input_data_emissao.config(state='normal')
+            
+            self.clear_inputs()
+
+            self.input_data_vencimento.delete(0,END)
+            self.input_data_emissao.delete(0,END)
+            
+            for p in data:
+                self.input_fornecedor.insert(0,p[2])
+                self.input_data_emissao.insert(0,p[3])
+                self.input_data_vencimento.insert(0,p[4])
+                self.input_valor_produto.insert(0,p[5])
+                self.input_valor_nf.insert(0,p[6])
+                self.input_descricao.insert(END,p[7])
+
+            self.input_data_vencimento.config(state='disabled')
+            self.input_data_emissao.config(state='disabled')
+        else:
+            messagebox.showerror('Aviso','Nota Fiscal não encontrada!')
+        self.desconect_db()
 # ------------------------Calendarios --------------------------------------
     def abrir_calendario_emissao(self):
         self.calendario_emissao = Calendar(self.root_nf, locale='pt_br')
@@ -59,13 +92,12 @@ class Functions(DB):
         self.input_data_vencimento.delete(0,END)
         self.input_data_vencimento.insert(END,self.data)
         self.input_data_vencimento.config(state='disabled')
-    
 # ---------------------------------------------------------------------------
 
     def get_values(self):
         try:
             self.numero = int(self.input_numero.get())
-            self.fornecedor = str(self.input_fornecedor).upper()
+            self.fornecedor = str(self.input_fornecedor.get()).upper()
             self.data_emissao = str(self.input_data_emissao.get())
             self.data_vencimento = str(self.input_data_vencimento.get())
             self.valor_produto = round(float(str(self.input_valor_produto.get()).replace(',','.')),2)
@@ -89,11 +121,56 @@ class Functions(DB):
         self.input_valor_nf.delete(0,END)
         self.input_descricao.delete("1.0", "end")
     
+    def carregarSomas(self):
+        self.soma_nf()
+        self.soma_produto()
+        self.quantidade_nf()
+
     def soma_nf(self):
-        pass
+        self.conect_db()
 
+        self.cursor.execute("""SELECT SUM(valor_nota) FROM nf;""")
+
+        query = self.cursor.fetchall()
+        
+        self.txt_valor_total_nf.config(text=f'{query[0][0]:,.2f}')
+        
     def soma_produto(self):
-        pass
+        self.conect_db()
 
+        self.cursor.execute("""SELECT SUM(valor_produto) FROM nf;""")
+
+        query = self.cursor.fetchall()
+        
+        self.txt_valor_total_produto.config(text=f'{query[0][0]:,.2f}')
+        
     def quantidade_nf(self):
-        pass
+        self.conect_db()
+
+        self.cursor.execute("""SELECT count(id) FROM nf;""")
+
+        query = self.cursor.fetchall()
+        
+        self.txt_total_quantidade.config(text=int(query[0][0]))
+        
+        self.desconect_db()
+
+    def exportar_nf(self):
+
+        self.conect_db()
+
+        self.cursor.execute("""SELECT * FROM nf""")
+
+        data = self.cursor.fetchall()
+
+        lista = list(map(list,data))
+
+        columns = ('id','numero_nf','fornecedor','data_emissao','data_vencimento','valor_produto','valor_nota','descricao')
+
+        df = pd.DataFrame(lista,columns=columns)
+
+        df.to_csv(f'Config/Transacoes/relatorio_nf_{date.today()}.csv',index=None, decimal=',')
+
+        self.desconect_db()
+
+        messagebox.showinfo('Aviso','Arquivo de nf exportado.')

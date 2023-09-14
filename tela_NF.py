@@ -12,6 +12,7 @@ class Screen_NF(Functions,Style):
         self.config()
         self.frames()
         self.labels()
+        self.carregarSomas()
 
 
         self.root_nf.mainloop()
@@ -113,7 +114,7 @@ class Screen_NF(Functions,Style):
         self.txt_total_nf = Label(self.frame_total_nf,text='Total NF',background=self.background,font='arial 15 bold',fg=self.font_color)
         self.txt_total_nf.pack()
 
-        self.txt_valor_total_nf = Label(self.frame_total_nf,text='0',background=self.background,font='arial 13',fg=self.font_color)
+        self.txt_valor_total_nf = Label(self.frame_total_nf,text='',background=self.background,font='arial 13',fg=self.font_color)
         self.txt_valor_total_nf.pack()
     #-------------------------------------------------------------------------------------
     
@@ -126,7 +127,7 @@ class Screen_NF(Functions,Style):
     #-------------------------------------------------------------------------------------
     
     #--------------------------------------button exportar transações-------------------------------------
-        self.button_exportar = Button(self.root_nf,text='Exportar Notas Fiscais',background=self.collor_button,font=self.font,fg=self.font_color)
+        self.button_exportar = Button(self.root_nf,text='Exportar Notas Fiscais',background=self.collor_button,font=self.font,fg=self.font_color,command=self.exportar_nf)
         self.button_exportar.place(relwidth=0.26,relx=0.20,rely=0.46)
     #-------------------------------------------------------------------------------------
 
