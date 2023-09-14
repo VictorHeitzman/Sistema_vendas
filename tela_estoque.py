@@ -98,6 +98,8 @@ class Screen_stock(Functions, Style):
 
         self.input_data.insert(END,str(date.today().strftime('%d/%m/%Y')))
 
+        self.input_data.config(state='disabled')
+
 # ----------------------------------- ---------------------------------------------------
 
 

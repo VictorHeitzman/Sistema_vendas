@@ -398,7 +398,7 @@ class Functions(DB,Style):
         self.root_selecao_produto = Toplevel()
         self.root_selecao_produto.title('PDV')
         self.root_selecao_produto.config(background=self.background)
-        self.root_selecao_produto.iconbitmap('img\icon_pdv.ico')
+        self.root_selecao_produto.iconbitmap('config\img\icon_pdv.ico')
         self.root_selecao_produto.resizable(False,False)
         self.root_selecao_produto.geometry('500x400+250+50')
         # self.stock.attributes('-fullscreen',True)

@@ -7,7 +7,7 @@ class Screen_NF(Functions,Style):
 
     def __init__(self):
         
-        self.root_nf = Tk()
+        # self.root_nf = Tk()
         
         self.config()
         self.frames()
@@ -15,11 +15,11 @@ class Screen_NF(Functions,Style):
         self.carregarSomas()
 
 
-        self.root_nf.mainloop()
+        # self.root_nf.mainloop()
     
     def config(self):
 
-        # self.root_nf = Toplevel()
+        self.root_nf = Toplevel()
         self.root_nf.title('Cadastro de clientes')
         self.root_nf.config(background=self.background)
         self.root_nf.iconbitmap('Config\img\icon_nf.ico')
@@ -27,8 +27,8 @@ class Screen_NF(Functions,Style):
         self.root_nf.geometry('600x600+250+50')
         # self.root_nf.attributes('-fullscreen',True)
 
-        # self.root_nf.focus_force()
-        # self.root_nf.grab_set()
+        self.root_nf.focus_force()
+        self.root_nf.grab_set()
 
 
     

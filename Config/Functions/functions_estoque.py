@@ -168,8 +168,10 @@ class Functions(DB,Style):
         self.data = self.calendario.get_date()
         self.calendario.destroy()
         self.button_insert_date.destroy()
+        self.input_data.config(state='normal')
         self.input_data.delete(0,END)
         self.input_data.insert(END,self.data)
+        self.input_data.config(state='disabled')
     
     def exportar_transacoes(self):
         

@@ -2,6 +2,7 @@ from Config.Modulos.modulos import *
 from Config.Coolors.style import Style
 from Config.Functions.functions_menu import Functions
 
+
 class Screen_menu(Functions,Style):
     
     
@@ -33,11 +34,13 @@ class Screen_menu(Functions,Style):
         self.icone_pdv = Button(self.root_menu, text="PDV", font=self.font_img,fg='White', compound='bottom',image=self.img_pdv,background=self.background,bd=0,command=self.screen_pdv)
         self.icone_pdv.place(relheight=0.40,relwidth=0.40,relx=0.55,rely=0.05)
 
-        self.icone_pdv = Button(self.root_menu, text="Estoque", font=self.font_img,fg='White', compound='bottom',image=self.estoque,background=self.background,bd=0, command=self.screen_stock)
-        self.icone_pdv.place(relheight=0.40,relwidth=0.40,relx=0.05,rely=0.55)
+        self.icone_estoque = Button(self.root_menu, text="Estoque", font=self.font_img,fg='White', compound='bottom',image=self.estoque,background=self.background,bd=0, command=self.screen_stock)
+        self.icone_estoque.place(relheight=0.40,relwidth=0.40,relx=0.05,rely=0.55)
 
-        self.icone_pdv = Button(self.root_menu, text="Nota Fiscal", font=self.font_img,fg='White', compound='bottom',image=self.nf,background=self.background,bd=0)
-        self.icone_pdv.place(relheight=0.40,relwidth=0.40,relx=0.55,rely=0.55)
+        self.icone_nf = Button(self.root_menu, text="Nota Fiscal", font=self.font_img,fg='White', compound='bottom',image=self.nf,background=self.background,bd=0,command=self.screen_nf)
+        self.icone_nf.place(relheight=0.40,relwidth=0.40,relx=0.55,rely=0.55)
+
+        
 
     
 
