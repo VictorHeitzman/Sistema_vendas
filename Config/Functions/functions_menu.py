@@ -71,7 +71,7 @@ class Functions(DB,Style):
         self.root_contatos.focus_force()
         self.root_contatos.grab_set()
 
-        self.txt_email = Label(self.root_contatos,text='Email: Heitzmam@gmail.com',background=self.background,font='arial 15 bold')
+        self.txt_email = Label(self.root_contatos,text='Email: heitzmam@gmail.com',background=self.background,font='arial 15 bold')
         self.txt_email.pack()
         
         self.txt_whatsapp = Label(self.root_contatos,text='Whatsapp',background=self.background,font=self.font)
