@@ -5,17 +5,17 @@ class Screen_stock(Functions, Style):
 
     def __init__(self) -> None:
 
-        # self.root_stock = Tk()
+        self.root_stock = Tk()
         
         self.config()
         # self.frames()
         self.labels()
         self.select_treeview_estoque()
         
-        # self.root_stock.mainloop()
+        self.root_stock.mainloop()
 
     def config(self):
-        self.root_stock = Toplevel()
+        # self.root_stock = Toplevel()
         self.root_stock.title('Estoque')
         self.root_stock.config(background=self.background)
         self.root_stock.iconbitmap('Config\img\icon_estoque.ico')
@@ -23,8 +23,8 @@ class Screen_stock(Functions, Style):
         self.root_stock.geometry('800x600+250+50')
         # self.stock.attributes('-fullscreen',True)
 
-        self.root_stock.focus_force()
-        self.root_stock.grab_set()
+        # self.root_stock.focus_force()
+        # self.root_stock.grab_set()
     
     def frames(self):
         self.frame_tipo = Frame(self.root_stock,background=self.background,highlightbackground=self.collor_button,highlightthickness=1)
@@ -38,6 +38,9 @@ class Screen_stock(Functions, Style):
 
         self.input_codigo = Entry(self.root_stock)
         self.input_codigo.place(relheight=0.04,relwidth=0.42,relx=0.20,rely=0.05)
+
+        self.input_codigo.bind('<Return>',self.enter)
+        self.input_codigo.focus()
 # ----------------------------------- ---------------------------------------------------
 
 # ----------------------------------- descricao ---------------------------------------

@@ -70,6 +70,8 @@ class Functions(DB,Style):
 
                 self.select_treeview_estoque()
 
+                self.input_codigo.focus()
+
             else: 
                 return messagebox.showinfo('Aviso','Preencha todos os campos!')
         except AttributeError:
@@ -156,23 +158,21 @@ class Functions(DB,Style):
         
         self.desconect_db()
     
-    # def abrir_calendario(self):
-    #     self.calendario = Calendar(self.root_stock, locale='pt_br')
-    #     self.calendario.place(relheight=0.30,relwidth=0.30,relx=0.47,rely=0.15)
-        
-    #     self.button_insert_date = Button(self.root_stock,font=self.font,background=self.collor_button,fg=self.font_color,text='Iserir data',command=self.getDate)
-    #     self.button_insert_date.place(relheight=0.03,relwidth=0.30,relx=0.47,rely=0.45) 
+    def enter(self, event):
 
-    # def getDate(self):
+        self.codigo = self.input_codigo.get()
+
+        self.conect_db()
+
+        self.cursor.execute("""SELECT * FROM estoque
+                            WHERE id_produto = (?);""",(self.codigo,))
+        query = self.cursor.fetchall()
         
-    #     self.data = self.calendario.get_date()
-    #     self.calendario.destroy()
-    #     self.button_insert_date.destroy()
-    #     self.input_data.config(state='normal')
-    #     self.input_data.delete(0,END)
-    #     self.input_data.insert(END,self.data)
-    #     self.input_data.config(state='disabled')
-    
+        
+        self.input_descricao.insert(END,query[0][2])
+        
+        self.desconect_db()
+
     def exportar_transacoes(self):
         
         self.conect_db()
