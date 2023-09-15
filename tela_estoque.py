@@ -90,15 +90,17 @@ class Screen_stock(Functions, Style):
 
 # ----------------------------------- DATA ---------------------------------------
 
-        self.txt_data = Button(self.root_stock,text='Data',background=self.collor_button,fg=self.font_color,font=self.font,command=self.abrir_calendario)
+        self.txt_data = Label(self.root_stock,text='Data',background=self.background,fg=self.font_color,font=self.font)
         self.txt_data.place(relheight=0.04,relwidth=0.05,relx=0.40,rely=0.15)
 
-        self.input_data = Entry(self.root_stock)
+        self.date_str = StringVar()
+
+        self.input_data = DateEntry(self.root_stock, locale='pt_BR', textvariable=self.date_str)
         self.input_data.place(relheight=0.04,relwidth=0.15,relx=0.47,rely=0.15)
 
-        self.input_data.insert(END,str(date.today().strftime('%d/%m/%Y')))
+        # self.input_data.insert(END,str(date.today().strftime('%d/%m/%Y')))
 
-        self.input_data.config(state='disabled')
+        # self.input_data.config(state='disabled')
 
 # ----------------------------------- ---------------------------------------------------
 

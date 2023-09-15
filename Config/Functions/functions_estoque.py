@@ -9,7 +9,7 @@ class Functions(DB,Style):
 
         try:
 
-            self.data = str(self.input_data.get())
+            self.data = self.date_str.get()
             self.codigo = int(self.input_codigo.get())
             self.descricao = str(self.input_descricao.get()).upper()
             self.preco_venda = float(str(self.input_preco_venda.get()).replace(',','.'))
@@ -155,23 +155,23 @@ class Functions(DB,Style):
             self.treeview_estoque.insert('',END,values=i)
         
         self.desconect_db()
-
-    def abrir_calendario(self):
-        self.calendario = Calendar(self.root_stock, locale='pt_br')
-        self.calendario.place(relheight=0.30,relwidth=0.30,relx=0.47,rely=0.15)
+    
+    # def abrir_calendario(self):
+    #     self.calendario = Calendar(self.root_stock, locale='pt_br')
+    #     self.calendario.place(relheight=0.30,relwidth=0.30,relx=0.47,rely=0.15)
         
-        self.button_insert_date = Button(self.root_stock,font=self.font,background=self.collor_button,fg=self.font_color,text='Iserir data',command=self.getDate)
-        self.button_insert_date.place(relheight=0.03,relwidth=0.30,relx=0.47,rely=0.45) 
+    #     self.button_insert_date = Button(self.root_stock,font=self.font,background=self.collor_button,fg=self.font_color,text='Iserir data',command=self.getDate)
+    #     self.button_insert_date.place(relheight=0.03,relwidth=0.30,relx=0.47,rely=0.45) 
 
-    def getDate(self):
+    # def getDate(self):
         
-        self.data = self.calendario.get_date()
-        self.calendario.destroy()
-        self.button_insert_date.destroy()
-        self.input_data.config(state='normal')
-        self.input_data.delete(0,END)
-        self.input_data.insert(END,self.data)
-        self.input_data.config(state='disabled')
+    #     self.data = self.calendario.get_date()
+    #     self.calendario.destroy()
+    #     self.button_insert_date.destroy()
+    #     self.input_data.config(state='normal')
+    #     self.input_data.delete(0,END)
+    #     self.input_data.insert(END,self.data)
+    #     self.input_data.config(state='disabled')
     
     def exportar_transacoes(self):
         

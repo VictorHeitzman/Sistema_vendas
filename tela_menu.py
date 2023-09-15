@@ -7,6 +7,7 @@ class Screen_menu(Functions,Style):
     
     
     def __init__(self) -> None:
+        
         self.root_menu = Tk()
 
         self.config()

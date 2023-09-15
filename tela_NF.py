@@ -14,7 +14,6 @@ class Screen_NF(Functions,Style):
         self.labels()
         self.carregarSomas()
 
-
         # self.root_nf.mainloop()
     
     def config(self):
@@ -52,25 +51,25 @@ class Screen_NF(Functions,Style):
     #-------------------------------------------------------------------------------------
 
     #--------------------------------------data_emissao-------------------------------------
-        self.txt_data_emissao = Button(self.root_nf,text='Data Emissão',background=self.collor_button,font=self.font,fg=self.font_color,command=self.abrir_calendario_emissao)
+        self.txt_data_emissao = Label(self.root_nf,text='Data Emissão',background=self.background,font=self.font,fg=self.font_color)
         self.txt_data_emissao.place(relheight=0.04,relx=0.03,rely=0.15)
 
-        self.input_data_emissao = Entry(self.root_nf)
+        self.data_emissao_str = StringVar()
+
+        self.input_data_emissao = DateEntry(self.root_nf,locale='pt_BR',textvariable=self.data_emissao_str)
         self.input_data_emissao.place(relwidth=0.15,relx=0.23,rely=0.15) 
         
-        self.input_data_emissao.insert(END,str(date.today().strftime('%d/%m/%y')))
-        self.input_data_emissao.config(state='disabled')
     #-------------------------------------------------------------------------------------
 
     #--------------------------------------data_vencimento-------------------------------------
-        self.txt_data_vencimento = Button(self.root_nf,text='Data Vencimento',background=self.collor_button,font=self.font,fg=self.font_color,command=self.abrir_calendario_vencimento)
+        self.txt_data_vencimento = Label(self.root_nf,text='Data Vencimento',background=self.background,font=self.font,fg=self.font_color)
         self.txt_data_vencimento.place(relheight=0.04,relx=0.39,rely=0.15)
+        
+        self.data_vencimento_str = StringVar()
 
-        self.input_data_vencimento = Entry(self.root_nf)
+        self.input_data_vencimento = DateEntry(self.root_nf,locale='pt_BR',textvariable=self.data_vencimento_str)
         self.input_data_vencimento.place(relwidth=0.15,relx=0.61,rely=0.15) 
 
-        self.input_data_vencimento.insert(END,str(date.today().strftime('%d/%m/%y')))
-        self.input_data_vencimento.config(state='disabled')
     #-------------------------------------------------------------------------------------
 
     #--------------------------------------valor_produto-------------------------------------

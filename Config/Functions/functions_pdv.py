@@ -26,8 +26,8 @@ class Functions(DB,Style):
             
             self.preco_unitario = float(self.input_preco_unitario.get())
             self.total_produto = float(self.input_total_produto.get())
-            self.valor_acrescimo = float(self.input_valor_acrescimo.get())
-            self.valor_desconto = float(self.input_valor_desconto.get())
+            self.valor_acrescimo = float(str(self.input_valor_acrescimo.get()).replace(',','.'))
+            self.valor_desconto = float(str(self.input_valor_desconto.get()).replace(',','.'))
             self.forma_pagamento = str(self.input_forma_pagamento.get())
             self.subtotal = round(float(self.txt_valor.cget('text')),2)
             self.data = str(date.today().strftime('%d/%m/%Y'))
@@ -202,7 +202,7 @@ class Functions(DB,Style):
     def soma_acrescimo(self, event):
         
         try:
-            self.valor_acrescimo = float(self.input_valor_acrescimo.get())
+            self.valor_acrescimo = float(str(self.input_valor_acrescimo.get()).replace(',','.'))
             self.subtotal += self.valor_acrescimo
             self.txt_valor.config(text=round(self.subtotal,2))
             self.treeview_pdv.insert('',END,values=(0,'ACRESCIMO',self.valor_acrescimo,0,self.valor_acrescimo))
@@ -215,7 +215,7 @@ class Functions(DB,Style):
     
     def soma_desconto(self, event):
         try:
-            self.valor_desconto = float(self.input_valor_desconto.get())
+            self.valor_desconto = float(str(self.input_valor_desconto.get()).replace(',','.'))
             self.subtotal -= self.valor_desconto
             self.txt_valor.config(text=round(self.subtotal,2))
             self.treeview_pdv.insert('',END,values=(00,'DESCONTO',self.valor_desconto,0,self.valor_desconto))
