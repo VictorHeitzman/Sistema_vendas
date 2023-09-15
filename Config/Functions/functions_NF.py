@@ -139,7 +139,7 @@ class Functions(DB):
 
         df = pd.DataFrame(lista,columns=columns)
 
-        df.to_csv(f'Config/Transacoes/relatorio_nf_{date.today()}.csv',index=None, decimal=',')
+        df.to_csv(f'Config/Transacoes/relatorio_nf_{date.today()}.csv',index=None, decimal=',', encoding='latin-1')
 
         self.desconect_db()
 

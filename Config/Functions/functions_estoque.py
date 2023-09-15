@@ -188,7 +188,7 @@ class Functions(DB,Style):
         columns = ('id','id_produto','descicao','data_registro','tipo','quantidade','preco_entrada','preco_saida','total','pagamento')
         df = pd.DataFrame(lista,columns=columns)
 
-        df.to_csv(f'Config/Transacoes/transacoes_{date.today()}.csv',index=None, decimal=',')
+        df.to_csv(f'Config/Transacoes/transacoes_{date.today()}.csv',index=None, decimal=',', encoding='latin-1')
 
         self.desconect_db()
         

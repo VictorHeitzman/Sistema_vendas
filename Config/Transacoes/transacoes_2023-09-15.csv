@@ -1,0 +1,10 @@
+id,id_produto,descicao,data_registro,tipo,quantidade,preco_entrada,preco_saida,total,pagamento
+1,123481813,MACARRAO,14/09/2023,entrada,10,"10,0","10,0","100,0",
+2,123481813,MACARRAO,14/09/2023,saida,1,"10,0","10,0","10,0",Dinheiro
+3,123481813,MACARRAO,14/09/2023,entrada,10,"10,0","10,0","100,0",
+4,123481813,MACARRAO,15/09/2023,saida,1,"10,0","10,0","10,0",Cartão
+5,1613813813813,FEIJÃO,,entrada,10,"10,0","10,0","100,0",
+6,1613813813813,FEIJÃO,15/09/2023,saida,1,"10,0","10,0","10,0",Pix
+7,1613813813813,FEIJÃO,15/09/2023,saida,1,"10,0","10,0","10,0",Pix
+8,1613813813813,FEIJÃO,15/09/2023,saida,1,"10,0","10,0","10,0",Pix
+9,1613813813813,FEIJÃO,15/09/2023,saida,1,"10,0","10,0","10,0",Pix

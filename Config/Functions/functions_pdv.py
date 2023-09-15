@@ -65,6 +65,7 @@ class Functions(DB,Style):
 
         self.txt_valor.config(text='0')
 
+
     def excluir(self):
 
         # if self.input_codigo != '':
@@ -177,6 +178,8 @@ class Functions(DB,Style):
         print(f'\ntransacao: {self.produtos}\n')
     
     def set_produto(self):
+
+        self.forma_pagamento = str(self.input_forma_pagamento.get())
         
         self.conect_db()
 
@@ -189,7 +192,7 @@ class Functions(DB,Style):
                                 posicao[4], 
                                 posicao[5], 
                                 posicao[6],
-                                posicao[7]))
+                                self.forma_pagamento))
             self.conexao.commit()
                 
         print('\nProdutos inseridos na tabela transações')

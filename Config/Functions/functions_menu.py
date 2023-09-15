@@ -158,7 +158,7 @@ Em resumo, o nosso sistema é uma ferramenta essencial para a gestão eficiente 
         columns = ('id','id_produto','descicao','data_registro','tipo','quantidade','preco_entrada','preco_saida','total','pagamento')
         df = pd.DataFrame(lista,columns=columns)
 
-        df.to_csv(f'Config/Transacoes/transacoes_{date.today()}.csv',index=None, decimal=',')
+        df.to_csv(f'Config/Transacoes/transacoes_{date.today()}.csv',index=None, decimal=',',encoding='latin-1')
 
         self.desconect_db()
         
@@ -177,7 +177,7 @@ Em resumo, o nosso sistema é uma ferramenta essencial para a gestão eficiente 
 
         df = pd.DataFrame(lista,columns=columns)
 
-        df.to_csv(f'Config/Transacoes/relatorio_nf_{date.today()}.csv',index=None, decimal=',')
+        df.to_csv(f'Config/Transacoes/relatorio_nf_{date.today()}.csv',index=None, decimal=',',encoding='latin-1')
 
         self.desconect_db()
 
