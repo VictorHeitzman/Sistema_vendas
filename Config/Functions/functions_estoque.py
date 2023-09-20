@@ -22,7 +22,7 @@ class Functions(DB,Style):
             print(f'codigo: {self.codigo}\ndescrição: {self.descricao}\npreco venda: {self.preco_venda}\npreco compra: {self.preco_compra}\nquantidade: {self.quantidade}\ndata: {self.data}')
         except ValueError:
                                     
-            print('Um ou mais dados com valores incorretos')
+            messagebox.showerror('Error', 'Um ou mais dados com valores incorretos')
     
     def double_click(self, event):
         
@@ -82,7 +82,9 @@ class Functions(DB,Style):
         self.conect_db()
 
         # iNSERINDO ESTOQUE
-        self.cursor.execute("""UPDATE estoque SET estoque = estoque + (?) WHERE id_produto = (?);""",
+        self.cursor.execute("""UPDATE estoque 
+                            SET estoque = estoque + (?) 
+                            WHERE id_produto = (?);""",
                             (self.quantidade,self.codigo))
 
         self.conexao.commit()
@@ -124,9 +126,9 @@ class Functions(DB,Style):
                                 WHERE id_produto = (?);""",(p[0],p[0]))
             
             # INSERINDO SALDO ESTOQUE
-            self.cursor.execute("""UPDATE estoque
-                                SET saldo_estoque = (SELECT round((total_entrada) - (total_saida))  FROM estoque where id_produto = (?))
-                                WHERE id_produto = (?);""",(p[0],p[0]))
+            # self.cursor.execute("""UPDATE estoque
+            #                     SET saldo_estoque = (SELECT round((total_entrada) - (total_saida))  FROM estoque where id_produto = (?))
+            #                     WHERE id_produto = (?);""",(p[0],p[0]))
 
         #  ENVIANDO
         self.conexao.commit()
@@ -167,7 +169,6 @@ class Functions(DB,Style):
         self.cursor.execute("""SELECT * FROM estoque
                             WHERE id_produto = (?);""",(self.codigo,))
         query = self.cursor.fetchall()
-        
         
         self.input_descricao.insert(END,query[0][2])
         

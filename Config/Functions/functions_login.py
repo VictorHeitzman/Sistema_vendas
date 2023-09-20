@@ -2,7 +2,7 @@ from Config.Modulos.modulos import *
 from Config.Functions.functions_db import DB
 
 from tela_cadastro_usuario import Screen_cadastre_user
-from tela_menu import Screen_menu
+from main import Screen_menu
 
 
 class Functions(DB):

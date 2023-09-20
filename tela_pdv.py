@@ -15,7 +15,7 @@ class Screen_pdv(Functions,Style):
         # self.root_pdv.mainloop()
     
     def config(self):
-# 
+# # 
         self.root_pdv = Toplevel()
         self.root_pdv.title('PDV')
         self.root_pdv.config(background=self.background)
@@ -42,12 +42,10 @@ class Screen_pdv(Functions,Style):
         self.input_codigo.place(relheight=0.05,relwidth=0.58,relx=0.11,rely=0.10)
         self.input_codigo.focus()
 
-        self.return_cod.trace_add('write', self.press_enter)
+        # self.return_cod.trace_add('write', self.press_enter)
 
         self.input_codigo.bind('<Double-1>',self.chamar_produtos)
-        # self.input_codigo.bind('<Return>',self.press_enter)
-        
-
+        self.input_codigo.bind('<Return>',self.press_enter)
         
         # -----------------------------------------------------------------------------------------------
 
@@ -139,9 +137,6 @@ class Screen_pdv(Functions,Style):
 
         self.txt_valor = Label(self.frame_subtotal,text=0,background=self.background,font='arial 23',fg=self.font_color)
         self.txt_valor.pack(anchor='center')
-
-        
-        
         # -----------------------------------------------------------------------------------------------
         
             
@@ -169,7 +164,9 @@ class Screen_pdv(Functions,Style):
         self.treeview_pdv.place(relheight=0.60,relwidth=0.69,relx=0.01,rely=0.30)
 
         self.treeview_pdv.bind('<Double-1>',self.double_click)
+        # self.treeview_pdv.bind('<ButtonRelease-1>', self.print_produtos)
         # -----------------------------------------------------------------------------------------------
+
 
 if __name__ == '__main__':
     root = Screen_pdv()

@@ -48,6 +48,7 @@ class Functions(DB,Style):
         
         self.contatos = Menu(self.barra_menu, tearoff=0)
         self.contatos.add_cascade(label='Whatsapp',command=self.contatos_)
+        self.contatos.add_cascade(label='E-mail',command=self.email)
 
         self.clientes = Menu(self.barra_menu, tearoff=0)
         self.clientes.add_command(label='Cadastro de clientes', command=self.screen_cadastro_cliente)
@@ -55,7 +56,7 @@ class Functions(DB,Style):
         
         # Adicionando ao label ao menu
         self.barra_menu.add_cascade(label='Sobre',menu=self.sobre)
-        self.barra_menu.add_cascade(label='Contatos', menu=self.contatos)
+        self.barra_menu.add_cascade(label='Contatos Dev', menu=self.contatos)
         self.barra_menu.add_cascade(label='Clientes',menu=self.clientes)
         self.barra_menu.add_cascade(label='Relatórios',menu=self.transacoes)
         
@@ -70,11 +71,8 @@ class Functions(DB,Style):
 
         self.root_contatos.focus_force()
         self.root_contatos.grab_set()
-
-        self.txt_email = Label(self.root_contatos,text='Email: heitzmam@gmail.com',background=self.background,font='arial 15 bold')
-        self.txt_email.pack()
         
-        self.txt_whatsapp = Label(self.root_contatos,text='Whatsapp',background=self.background,font=self.font)
+        self.txt_whatsapp = Label(self.root_contatos,text='Whatsapp',background=self.background,font='arial 15')
         self.txt_whatsapp.pack()
 
         self.img = PhotoImage(file='Config/img/qr_whatsapp.png')
@@ -183,6 +181,20 @@ Em resumo, o nosso sistema é uma ferramenta essencial para a gestão eficiente 
 
         messagebox.showinfo('Aviso','Arquivo de nf exportado.')
     
-        
+    def email(self):
+
+        self.root_contatos = Toplevel()
+        self.root_contatos.title('E-mail')
+        self.root_contatos.config(background=self.background)
+        self.root_contatos.iconbitmap('Config\img\icon_contatos.ico')
+        self.root_contatos.resizable(False,False)
+
+        # self.root_cadastro_cliente.attributes('-fullscreen',True)
+
+        self.root_contatos.focus_force()
+        self.root_contatos.grab_set()
+
+        self.txt_email = Label(self.root_contatos,text='Email: heitzmam@gmail.com',background=self.background,font='arial 15 bold')
+        self.txt_email.pack()
 
         

@@ -84,12 +84,12 @@ class Screen_stock(Functions, Style):
 
 # ----------------------------------- ---------------------------------------------------
 
-# ----------------------------------- Button salvar ---------------------------------------
+# ----------------------------------- Button exportar transações ---------------------------------------
+
         self.button_salvar = Button(self.root_stock,fg=self.font_color,background=self.collor_button, text='Exportar transações',command=self.exportar_transacoes)        
         self.button_salvar.place(relheight=0.04,relwidth=0.15,relx=0.15,rely=0.33)
 
-
-# ----------------------------------- ---------------------------------------------------
+# ----------------------------------------------------------------------------------------
 
 # ----------------------------------- DATA ---------------------------------------
 
@@ -109,7 +109,7 @@ class Screen_stock(Functions, Style):
 
 
 # ----------------------------------- treeview ---------------------------------------
-        self.columns = ('id','id_produto','descricao','quantidade_entrada','quantidade_saida','estoque','total_entrada','total_saida','saldo_estoque')
+        self.columns = ('id','id_produto','descricao','quantidade_entrada','quantidade_saida','estoque','total_entrada','total_saida')
         self.treeview_estoque = ttk.Treeview(self.root_stock,columns=self.columns,show='headings')
         
         self.treeview_estoque.heading('#1', text='id')
@@ -120,7 +120,7 @@ class Screen_stock(Functions, Style):
         self.treeview_estoque.heading('#6', text='estoque')
         self.treeview_estoque.heading('#7', text='total entrada')
         self.treeview_estoque.heading('#8', text='total saida')
-        self.treeview_estoque.heading('#9', text='saldo estoque')
+        # self.treeview_estoque.heading('#9', text='saldo estoque')
 
         self.treeview_estoque.column('#1', width=1)
         self.treeview_estoque.column('#2', width=20)
@@ -130,7 +130,7 @@ class Screen_stock(Functions, Style):
         self.treeview_estoque.column('#6', width=70)
         self.treeview_estoque.column('#7', width=70)
         self.treeview_estoque.column('#8', width=70)
-        self.treeview_estoque.column('#9', width=70)
+        # self.treeview_estoque.column('#9', width=70)
 
         self.scroolList = Scrollbar(self.root_stock,orient='vertical')
         self.treeview_estoque.config(yscrollcommand=self.scroolList.set)

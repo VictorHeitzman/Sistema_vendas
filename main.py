@@ -1,84 +1,46 @@
 from Config.Modulos.modulos import *
-from Config.Functions.functions_login import Functions
-from Config.Coolors.style import  Style
+from Config.Coolors.style import Style
+from Config.Functions.functions_menu import Functions
 
-class Screen_login(Functions, Style):
-#---------------------- var ---------------------------
+
+class Screen_menu(Functions,Style):
     
-
-    def __init__(self):
-        self.root_login = Tk()
+    
+    def __init__(self) -> None:
         
+        self.root_menu = Tk()
+
+        self.create_databases()
         self.config()
         self.labels()
-        
-        self.create_databases()
-        
-        self.root_login.mainloop()
+        self.menu()
 
+        self.root_menu.mainloop()
+    
     def config(self):
-        self.root_login.title('Tela de login')
-        self.root_login.config(background=self.background)
-        self.root_login.iconbitmap('Config\img\icon_login.ico')
-        self.root_login.geometry('240x200+500+250')
+        self.root_menu.title('Menu')
+        self.root_menu.config(background=self.background)
+        self.root_menu.iconbitmap('Config\img\icon_menu.ico')
+        self.root_menu.geometry('600x600+500+250')
+
+        self.img_product = PhotoImage(file = "Config\img\img_produto.png").subsample(4,4)
+        self.img_pdv = PhotoImage(file= "Config\img\img_pdv.png").subsample(4,4)
+        self.estoque = PhotoImage(file= "Config\img\img_estoque.png").subsample(4,4)
+        self.nf = PhotoImage(file= "Config\img\img_nf.png").subsample(4,4)
 
     def labels(self):
-#--------------Titulo tela_login----------------- 
-        self.titulo_login = Label(self.root_login,
-                            text='Tela de Login',
-                            font='arial 15',
-                            background=self.background,
-                            fg=self.font_color)
-        self.titulo_login.place(relheight=0.12, relwidth=0.50,relx=0.25,rely=0.05)
-#------------------------------------------------ 
+        self.icone_product = Button(self.root_menu, text="Cadastro de Produtos", font=self.font_img,fg='White', compound='bottom',image=self.img_product,background=self.background,bd=0, command=self.screen_products_cadastre)
+        self.icone_product.place(relheight=0.40,relwidth=0.40,relx=0.05,rely=0.05)
 
+        self.icone_pdv = Button(self.root_menu, text="PDV", font=self.font_img,fg='White', compound='bottom',image=self.img_pdv,background=self.background,bd=0,command=self.screen_pdv)
+        self.icone_pdv.place(relheight=0.40,relwidth=0.40,relx=0.55,rely=0.05)
 
-#--------------------Login------------------------ 
-        self.txt_login = Label(text='Login',
-                            font=self.font,
-                            background=self.background,
-                            fg=self.font_color)
-        self.txt_login.place(relheight=0.10,relwidth=0.20,relx=0.10,rely=0.25)
+        self.icone_estoque = Button(self.root_menu, text="Estoque", font=self.font_img,fg='White', compound='bottom',image=self.estoque,background=self.background,bd=0, command=self.screen_stock)
+        self.icone_estoque.place(relheight=0.40,relwidth=0.40,relx=0.05,rely=0.55)
 
-        self.input_login = Entry(self.root_login,
-                            background=self.background)
-        self.input_login.place(relheight=0.10,relwidth=0.50,relx=0.30,rely=0.25)
-    #------------------------------------------------
+        self.icone_nf = Button(self.root_menu, text="Nota Fiscal", font=self.font_img,fg='White', compound='bottom',image=self.nf,background=self.background,bd=0,command=self.screen_nf)
+        self.icone_nf.place(relheight=0.40,relwidth=0.40,relx=0.55,rely=0.55)
+   
 
-
-    #--------------------senha------------------------ 
-        self.txt_senha = Label(text='Senha',
-                            font=self.font,
-                            background=self.background,
-                            fg=self.font_color)
-        self.txt_senha.place(relheight=0.10,relwidth=0.20,relx=0.10,rely=0.45)
-
-        self.input_senha = Entry(self.root_login,
-                            background=self.background,
-                            show='*')
-        self.input_senha.place(relheight=0.10,relwidth=0.50,relx=0.30,rely=0.45)
-    #------------------------------------------------
-
-
-    #-----------------button_login--------------------
-        self.button_login = Button(self.root_login,
-                                text='Login',
-                                font=self.font,
-                                background=self.collor_button,
-                                fg=self.font_color,
-                                command=self.login)
-        self.button_login.place(relheight=0.13,relwidth=0.20,relx=0.25,rely=0.65)
-    #-------------------------------------------------
-
-
-    #-----------------button_cadastrar--------------------
-        self.button_cadastrar = Button(self.root_login,
-                                text='Cadastrar',
-                                font=self.font,
-                                background=self.collor_button,
-                                fg=self.font_color,
-                                command=self.screen_cadastre_user)
-        self.button_cadastrar.place(relheight=0.13,relwidth=0.30,relx=0.50,rely=0.65)
-        
 if __name__ == '__main__':
-    app = Screen_login()
+    root = Screen_menu()

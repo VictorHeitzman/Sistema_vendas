@@ -57,15 +57,19 @@ class Functions(DB,Style):
                 self.root_pdv.grab_set()
 
     def finalizar(self):
-        self.set_produto()
+        if len(self.produtos) != 0:
+            self.set_produto()
 
-        self.atualiza_somatorio_estoque()
+            self.atualiza_somatorio_estoque()
 
-        self.treeview_pdv.delete(*self.treeview_pdv.get_children())
+            self.treeview_pdv.delete(*self.treeview_pdv.get_children())
 
-        self.txt_valor.config(text='0')
+            self.txt_valor.config(text='0')
 
+            self.produtos.clear()
 
+            messagebox.showinfo('Finalizado','Transação efetuada!')
+        else: messagebox.showerror('Erro','Sem produtos no carrinho!')
     def excluir(self):
 
         # if self.input_codigo != '':
@@ -78,6 +82,10 @@ class Functions(DB,Style):
 
         self.txt_valor.config(text=str(round(self.subtotal,2)))
 
+        # excluindo produtos da lista de compras
+        self.index = self.treeview_pdv.index(select)
+        self.produtos.pop(self.index)
+
         self.inserir_estoque()
 
         self.clear_input()
@@ -86,7 +94,7 @@ class Functions(DB,Style):
         # else:
         #     messagebox.showerror('Aviso','Selecione um registro!')
 
-    def press_enter(self, var, index, mode ):
+    def press_enter(self, event):
         
         try:
         
@@ -259,7 +267,7 @@ class Functions(DB,Style):
     
         self.conect_db()
 
-        self.cursor.execute("""SELECT estoque FROM estoque
+        self.cursor.execute("""SELECT estoque, quantidade_saida FROM estoque
                                                     WHERE id_produto = (?);""",(self.codigo,))
         self.conexao.commit()
         self.quantidade_estoque = self.cursor.fetchall()                                          
@@ -304,12 +312,18 @@ class Functions(DB,Style):
         self.verifica_estoque()
         
         estoque_novo = self.quantidade_estoque[0][0] + self.quantidade
+
         
         self.conect_db()
 
         self.cursor.execute("""UPDATE estoque
                     SET estoque = (?)
-                    WHERE id_produto = (?)""",(estoque_novo,self.codigo))
+                    WHERE id_produto = (?);""",(estoque_novo,self.codigo))
+        
+        # self.cursor.execute("""UPDATE estoque
+        #             SET quantidade_saida = (?)
+        #             WHERE id_produto = (?);""",(quantidade_saida,self.codigo))
+        
         self.conexao.commit()
 
         print('\nProduto inserido novamente no estoque')
@@ -355,9 +369,9 @@ class Functions(DB,Style):
                                 WHERE id_produto = (?);""",(p[0],p[0]))
             
             # INSERINDO SALDO ESTOQUE
-            self.cursor.execute("""UPDATE estoque
-                                SET saldo_estoque = (SELECT round((total_entrada) - (total_saida))  FROM estoque where id_produto = (?))
-                                WHERE id_produto = (?);""",(p[0],p[0]))
+            # self.cursor.execute("""UPDATE estoque
+            #                     SET saldo_estoque = (SELECT round((total_entrada) - (total_saida))  FROM estoque where id_produto = (?))
+            #                     WHERE id_produto = (?);""",(p[0],p[0]))
 
             #  ENVIANDO
             

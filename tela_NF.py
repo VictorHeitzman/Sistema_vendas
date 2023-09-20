@@ -19,7 +19,7 @@ class Screen_NF(Functions,Style):
     def config(self):
 
         self.root_nf = Toplevel()
-        self.root_nf.title('Cadastro de clientes')
+        self.root_nf.title('Cadastro de Notas Fiscais')
         self.root_nf.config(background=self.background)
         self.root_nf.iconbitmap('Config\img\icon_nf.ico')
         self.root_nf.resizable(False,False)

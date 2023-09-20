@@ -39,7 +39,6 @@ class DB:
                             estoque integer,
                             total_entrada real,
                             total_saida real,
-                            saldo_estoque real,
                             PRIMARY	KEY(id),
                             FOREIGN key(id_produto) REFERENCES produtos(id)
                         );"""

@@ -9,3 +9,4 @@ from sqlite3 import Error as erro_sql
 import segno as qr
 import babel.numbers
 
+

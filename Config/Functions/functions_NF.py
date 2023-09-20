@@ -24,7 +24,7 @@ class Functions(DB):
 
         self.carregarSomas()
 
-        messagebox.showerror('Aviso','Nf Salva')
+        messagebox.showinfo('Aviso','Nf Salva')
     
     def enter(self, event):
 
