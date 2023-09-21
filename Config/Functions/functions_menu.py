@@ -88,8 +88,8 @@ class Functions(DB,Style):
         self.root_este_sistema.config(background=self.background)
         self.root_este_sistema.iconbitmap('Config\img\icon_dev.ico')
         self.root_este_sistema.resizable(False,False)
-        self.root_este_sistema.geometry('800x500+250+50')
-        # self.root_cadastro_cliente.attributes('-fullscreen',True)
+        self.root_este_sistema.geometry('900x500+250+50')
+        # self.root_este_sistema.attributes('-fullscreen',True)
 
         self.root_este_sistema.focus_force()
         self.root_este_sistema.grab_set()
@@ -134,9 +134,10 @@ Em resumo, o nosso sistema é uma ferramenta essencial para a gestão eficiente 
         self.txt.place(relheight=0.99,relwidth=0.99)
 
         self.txt.insert(END,text)
+        self.txt.config(state='disabled')
     
     def criar_novo_qr(self):
-        img = qr.make('https://api.whatsapp.com/send/?phone=11998338754&text&type=phone_number&app_absent=0')
+        img = qr.make('https://api.whatsapp.com/send/?phone=5511998338754&text&type=phone_number&app_absent=0')
 
         img.save('Config/img/qr_whatsapp.png', scale=5) 
 

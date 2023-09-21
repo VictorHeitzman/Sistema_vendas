@@ -107,3 +107,6 @@ class Functions(DB):
             # print(f'preço venda {self.preco_venda}')
         except:
             messagebox.showerror('Aviso','Valores invalidos!')
+        
+    def enter(self, event):
+        self.input_descricao.focus()

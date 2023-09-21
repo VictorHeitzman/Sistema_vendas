@@ -8,8 +8,7 @@ class Functions(DB,Style):
     def getValues(self):
 
         try:
-
-            self.data = self.date_str.get()
+            self.date = self.date_str_estoque.get()
             self.codigo = int(self.input_codigo.get())
             self.descricao = str(self.input_descricao.get()).upper()
             self.preco_venda = float(str(self.input_preco_venda.get()).replace(',','.'))
@@ -19,7 +18,7 @@ class Functions(DB,Style):
                 self.quantidade = 0
             else: self.quantidade = int(self.input_quantidade.get())
 
-            print(f'codigo: {self.codigo}\ndescrição: {self.descricao}\npreco venda: {self.preco_venda}\npreco compra: {self.preco_compra}\nquantidade: {self.quantidade}\ndata: {self.data}')
+            print(f'codigo: {self.codigo}\ndescrição: {self.descricao}\npreco venda: {self.preco_venda}\npreco compra: {self.preco_compra}\nquantidade: {self.quantidade}\ndata: {self.date}')
         except ValueError:
                                     
             messagebox.showerror('Error', 'Um ou mais dados com valores incorretos')
@@ -58,7 +57,7 @@ class Functions(DB,Style):
                 
                 self.conect_db()
                 
-                self.cursor.execute("""INSERT INTO transacoes VALUES(null,(?),(?),(?),'entrada',(?),(?),(?),(?),null);""",(self.codigo,self.descricao,self.data,self.quantidade,round(self.preco_compra,2),round(self.preco_venda,2),round(self.total,2)))
+                self.cursor.execute("""INSERT INTO transacoes VALUES(null,(?),(?),(?),'entrada',(?),(?),(?),(?),null);""",(self.codigo,self.descricao,self.date,self.quantidade,round(self.preco_compra,2),round(self.preco_venda,2),round(self.total,2)))
 
                 self.conexao.commit()
 
@@ -174,6 +173,8 @@ class Functions(DB,Style):
         
         self.desconect_db()
 
+        self.input_quantidade.focus()
+
     def exportar_transacoes(self):
         
         self.conect_db()
@@ -182,9 +183,9 @@ class Functions(DB,Style):
         
         self.conexao.commit()
 
-        data = self.cursor.fetchall()
+        dados = self.cursor.fetchall()
         
-        lista = list(map(list,data))
+        lista = list(map(list,dados))
 
         columns = ('id','id_produto','descicao','data_registro','tipo','quantidade','preco_entrada','preco_saida','total','pagamento')
         df = pd.DataFrame(lista,columns=columns)

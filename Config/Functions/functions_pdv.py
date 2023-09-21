@@ -75,16 +75,16 @@ class Functions(DB,Style):
         # if self.input_codigo != '':
     
         select = self.treeview_pdv.selection()[0]
-        
+
+        # excluindo produtos da lista de compras
+        self.index = self.treeview_pdv.index(select)
+        self.produtos.pop(self.index)        
+
         self.treeview_pdv.delete(select)
 
         self.subtotal -= round(self.total_produto,2)
 
         self.txt_valor.config(text=str(round(self.subtotal,2)))
-
-        # excluindo produtos da lista de compras
-        self.index = self.treeview_pdv.index(select)
-        self.produtos.pop(self.index)
 
         self.inserir_estoque()
 

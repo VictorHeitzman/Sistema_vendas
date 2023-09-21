@@ -5,17 +5,17 @@ class Screen_stock(Functions, Style):
 
     def __init__(self) -> None:
 
-        self.root_stock = Tk()
+        # self.root_stock = Tk()
         
         self.config()
         # self.frames()
         self.labels()
         self.select_treeview_estoque()
         
-        self.root_stock.mainloop()
+        # self.root_stock.mainloop()
 
     def config(self):
-        # self.root_stock = Toplevel()
+        self.root_stock = Toplevel()
         self.root_stock.title('Estoque')
         self.root_stock.config(background=self.background)
         self.root_stock.iconbitmap('Config\img\icon_estoque.ico')
@@ -23,8 +23,8 @@ class Screen_stock(Functions, Style):
         self.root_stock.geometry('800x600+250+50')
         # self.stock.attributes('-fullscreen',True)
 
-        # self.root_stock.focus_force()
-        # self.root_stock.grab_set()
+        self.root_stock.focus_force()
+        self.root_stock.grab_set()
     
     def frames(self):
         self.frame_tipo = Frame(self.root_stock,background=self.background,highlightbackground=self.collor_button,highlightthickness=1)
@@ -96,9 +96,9 @@ class Screen_stock(Functions, Style):
         self.txt_data = Label(self.root_stock,text='Data',background=self.background,fg=self.font_color,font=self.font)
         self.txt_data.place(relheight=0.04,relwidth=0.05,relx=0.40,rely=0.15)
 
-        self.date_str = StringVar()
+        self.date_str_estoque = StringVar()
 
-        self.input_data = DateEntry(self.root_stock, locale='pt_BR', textvariable=self.date_str)
+        self.input_data = DateEntry(self.root_stock, locale='pt_BR', textvariable=self.date_str_estoque)
         self.input_data.place(relheight=0.04,relwidth=0.15,relx=0.47,rely=0.15)
 
         # self.input_data.insert(END,str(date.today().strftime('%d/%m/%Y')))
