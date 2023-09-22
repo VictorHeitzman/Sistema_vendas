@@ -19,7 +19,7 @@ class Screen_controle_cliente(Functions,Style):
         self.root_controle_cliente.title('Controle de Clientes')
         self.root_controle_cliente.config(background=self.background)
         self.root_controle_cliente.iconbitmap('Config\img\icon_cliente.ico')
-        self.root_controle_cliente.resizable(False,False)
+
         self.root_controle_cliente.geometry('700x600+250+50')
         # self.stock.attributes('-fullscreen',True)
 
@@ -27,13 +27,13 @@ class Screen_controle_cliente(Functions,Style):
         self.root_controle_cliente.grab_set()
 
     def labels(self):
-        self.txt_nome = Label(self.root_controle_cliente,background=self.background,fg=self.font_color,font='arial 20',text='Nome')
+        self.txt_nome = Label(self.root_controle_cliente,background=self.background,fg=self.font_color,font='arial 11',text='Nome')
         self.txt_nome.pack(ipady=15)
 
-        self.txt_endereco = Label(self.root_controle_cliente,background=self.background,fg=self.font_color,font='arial 20',text='Endereço')
+        self.txt_endereco = Label(self.root_controle_cliente,background=self.background,fg=self.font_color,font='arial 11',text='Endereço')
         self.txt_endereco.pack(ipady=15)
 
-        self.txt_numero = Label(self.root_controle_cliente,background=self.background,fg=self.font_color,font='arial 20',text='Telefone')
+        self.txt_numero = Label(self.root_controle_cliente,background=self.background,fg=self.font_color,font='arial 11',text='Telefone')
         self.txt_numero.pack(ipady=10)
 
         self.resp = StringVar()
@@ -42,11 +42,17 @@ class Screen_controle_cliente(Functions,Style):
         self.tipo_pagando.pack()
         self.tipo_devendo.pack()
 
-        self.txt_valor = Label(self.root_controle_cliente,text='Valor:',font='arial 20',background=self.background,fg=self.font_color)
-        self.txt_valor.place(relheight=0.09,relwidth=0.15,relx=0.30,rely=0.42)
+        self.txt_valor = Label(self.root_controle_cliente,text='Valor:',font='arial 15',background=self.background,fg=self.font_color)
+        self.txt_valor.place(relx=0.32,rely=0.34)
         
         self.input_valor = Entry(self.root_controle_cliente,font='arial 15')
-        self.input_valor.place(relheight=0.09,relwidth=0.15,relx=0.43,rely=0.42)
+        self.input_valor.place(relheight=0.05,relwidth=0.15,relx=0.43,rely=0.34)
+
+        self.txt_descricao = Label(self.root_controle_cliente,background=self.background,fg=self.font_color,font='arial 11',text='Descrição')
+        self.txt_descricao.place(relx=0.32,rely=0.40)
+
+        self.input_descricao = Text(self.root_controle_cliente)
+        self.input_descricao.place(relheight=0.15,relwidth=0.30,relx=0.43,rely=0.40)
 
         self.button_salvar = Button(self.root_controle_cliente,text='Salvar',background=self.collor_button,fg=self.font_color,command=self.salvar)
         self.button_salvar.place(relheight=0.05,relwidth=0.10,relx=0.15,rely=0.50)

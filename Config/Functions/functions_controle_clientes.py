@@ -28,12 +28,13 @@ class Functions(DB,Style):
 
             self.txt_nome.config(text=self.tupla[1])
             self.txt_endereco.config(text=self.tupla[2])
-            self.txt_numero .config(text=self.tupla[3])
+            self.txt_numero.config(text=self.tupla[3])
         print('tupla: ',self.tupla)
     
     def get_tipo(self):
         
         self.tipo = str(self.resp.get())
+        print(self.tipo)
 
         if self.tipo == '':
             messagebox.showerror('Aviso','Escolha o tipo de transação')
@@ -55,11 +56,15 @@ class Functions(DB,Style):
     def get_data(self):
         self.data = date.today().strftime('%d/%m/%Y')
 
+    def get_descricao(self):
+        self.descricao = self.input_descricao.get(1.0, "end-1c")
+
     def salvar(self):
         self.get_tipo()
         self.get_value()
         self.get_text()
         self.get_data()
+        self.get_descricao()
 
         self.conect_db()
 
@@ -77,14 +82,17 @@ class Functions(DB,Style):
         self.select_treeview()
 
         self.clear_input()
-
+    
         self.insert_transacoes_clientes()
+
+        self.tupla = tuple()
     
     def clear_input(self):
         self.input_valor.delete(0,END)
         self.txt_nome.config(text='Nome')
         self.txt_endereco.config(text='Endereço')
         self.txt_numero.config(text='Telefone')
+        self.input_descricao.delete("1.0", "end") 
 
     def pegando_ultimo_valor(self):
 
@@ -102,15 +110,20 @@ class Functions(DB,Style):
             self.total = self.valor + float(self.ultimo_valor[0][0])
             print('devendo :', self.valor)
             print('saldo: ',self.total)
+            
+        
         elif self.tipo == 'Pagando':
-            self.total = float(self.ultimo_valor[0][0]) - self.valor
-            print('pagando: ',self.valor)
-            print('saldo: ',self.total)
+            if self.ultimo_valor[0][0] <= 0:
+                messagebox.showerror('Error','Não é possível o cliente pagar sem estar devendo!')
+            else:
+                self.total = float(self.ultimo_valor[0][0]) - self.valor
+                print('pagando: ',self.valor)
+                print('saldo: ',self.total)
         
     def insert_transacoes_clientes(self):
         self.conect_db()
 
-        self.cursor.execute("""INSERT INTO transacoes_devedores VALUES (null,(?),(?),(?),(?),(?),(?),(?))""",(self.tupla[0],self.tupla[1],self.tupla[2],self.tupla[3],self.tupla[4],self.valor,self.data))
+        self.cursor.execute("""INSERT INTO transacoes_devedores VALUES (null,(?),(?),(?),(?),(?),(?),(?))""",(self.tupla[0],self.tupla[1],self.descricao,self.tupla[3],self.tipo,self.valor,self.data))
         self.conexao.commit()
 
         print('\ntransação adicionada!')

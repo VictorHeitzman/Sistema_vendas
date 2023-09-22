@@ -45,6 +45,7 @@ class Functions(DB,Style):
         self.transacoes = Menu(self.barra_menu, tearoff=0)
         self.transacoes.add_cascade(label='Transações Notas Fiscais',command=self.notas_fiscais)
         self.transacoes.add_cascade(label='Transações de entrada e saída',command=self.transasoes_venda)
+        self.transacoes.add_cascade(label='Transações de clientes', command=self.transacoes_clientes)
         
         self.contatos = Menu(self.barra_menu, tearoff=0)
         self.contatos.add_cascade(label='Whatsapp',command=self.contatos_)
@@ -197,5 +198,20 @@ Em resumo, o nosso sistema é uma ferramenta essencial para a gestão eficiente 
 
         self.txt_email = Label(self.root_contatos,text='Email: heitzmam@gmail.com',background=self.background,font='arial 15 bold')
         self.txt_email.pack()
+    
+    def transacoes_clientes(self):
+        self.conect_db()
 
-        
+        columns = ('id','id_cliente','nome','descricao','telefone','tipo','valor','data')
+        self.cursor.execute('SELECT * FROM transacoes_devedores')
+        data = self.cursor.fetchall()
+
+        lista = list(map(list,data))
+
+        df = pd.DataFrame(lista,columns=columns)
+
+        df.to_csv(f'Config/Transacoes/relatorio_clientes_{date.today()}.csv',index=None, decimal=',',encoding='latin-1')
+
+        self.desconect_db()
+
+        messagebox.showinfo('Aviso','Arquivo de clientes exportado.')

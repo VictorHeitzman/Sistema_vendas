@@ -79,7 +79,8 @@ class Functions(DB):
 
         if self.codigo != "" and self.descricao != "":
             
-            self.cursor.execute("""DELETE FROM produtos WHERE id = (?)""",(self.codigo,))
+            self.cursor.execute("""DELETE FROM produtos WHERE id = (?);""",(self.codigo,))
+            self.cursor.execute("""DELETE FROM estoque WHERE id_produto = (?);""",(self.codigo,))
             self.conexao.commit()
             
             self.select_treeview_produtos()
@@ -110,3 +111,26 @@ class Functions(DB):
         
     def enter(self, event):
         self.input_descricao.focus()
+    
+    def alterar_descricao(self):
+        
+        self.get_values()
+        
+        self.conect_db()
+
+        self.cursor.execute("""UPDATE produtos
+                            SET descricao_produto = (?)
+                            WHERE id = (?);""",(self.descricao,self.codigo))
+        
+        self.cursor.execute("""UPDATE estoque
+                            SET descricao = (?)
+                            WHERE id_produto = (?);""",(self.descricao,self.codigo))
+        
+        self.conexao.commit()
+
+        self.desconect_db()
+        
+        self.clear_inputs()
+        self.select_treeview_produtos()
+
+        messagebox.showinfo('Aviso','Descrição do produto alterado.')

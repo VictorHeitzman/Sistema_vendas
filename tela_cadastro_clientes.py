@@ -52,7 +52,7 @@ class Screen_cadastro_cliente(Functions,Style):
     # --------------------------------------------------------------------
         
     # --------------------------- Endereço ---------------------------------
-        self.txt_endereco = Label(self.root_cadastro_cliente,text='Endereço:',font=self.font,background=self.background,fg=self.font_color)
+        self.txt_endereco = Label(self.root_cadastro_cliente,text='Descrição:',font=self.font,background=self.background,fg=self.font_color)
         self.txt_endereco.place(relheight=0.05,relwidth=0.20, relx=0.03,rely=0.30)
 
         self.input_endereco = Entry(self.root_cadastro_cliente)

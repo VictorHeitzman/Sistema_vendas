@@ -69,7 +69,13 @@ class Functions(DB,Style):
             self.produtos.clear()
 
             messagebox.showinfo('Finalizado','Transação efetuada!')
-        else: messagebox.showerror('Erro','Sem produtos no carrinho!')
+            self.root_pdv.focus_force()
+            self.root_pdv.grab_set()
+        else: 
+            messagebox.showerror('Erro','Sem produtos no carrinho!')
+            self.root_pdv.focus_force()
+            self.root_pdv.grab_set()
+
     def excluir(self):
 
         # if self.input_codigo != '':
@@ -211,12 +217,35 @@ class Functions(DB,Style):
         self.insert_values()
 
     def soma_acrescimo(self, event):
-        
+
         try:
             self.valor_acrescimo = float(str(self.input_valor_acrescimo.get()).replace(',','.'))
             self.subtotal += self.valor_acrescimo
             self.txt_valor.config(text=round(self.subtotal,2))
             self.treeview_pdv.insert('',END,values=(0,'ACRESCIMO',self.valor_acrescimo,0,self.valor_acrescimo))
+
+            self.codigo = 0
+            self.descricao = 'ACRESCIMO'
+            self.data = str(date.today().strftime('%d/%m/%Y'))   
+            self.quantidade = 1
+            self.valor_compra = 0
+            self.preco_unitario = self.valor_acrescimo
+            self.total_produto = self.valor_acrescimo
+            self.forma_pagamento = 'ACRESCIMO'
+
+            tupla = (self.codigo, 
+            self.descricao, 
+            self.data, 
+            self.quantidade, 
+            self.valor_compra, 
+            self.preco_unitario, 
+            self.total_produto,
+            self.forma_pagamento)
+
+            self.produtos.append(tupla)
+        
+            print(f'\ntransacao: {self.produtos}\n')
+
         except:
             messagebox.showerror('Aviso','Valor de acrescimo invalido.')
         self.clear_input()
@@ -230,6 +259,28 @@ class Functions(DB,Style):
             self.subtotal -= self.valor_desconto
             self.txt_valor.config(text=round(self.subtotal,2))
             self.treeview_pdv.insert('',END,values=(00,'DESCONTO',self.valor_desconto,0,self.valor_desconto))
+
+            self.codigo = 0
+            self.descricao = 'DESCONTO'
+            self.data = str(date.today().strftime('%d/%m/%Y'))   
+            self.quantidade = 1
+            self.valor_compra = 0
+            self.preco_unitario = self.valor_desconto
+            self.total_produto = self.valor_desconto
+            self.forma_pagamento = 'DESCONTO'
+
+            tupla = (self.codigo, 
+            self.descricao, 
+            self.data, 
+            self.quantidade, 
+            self.valor_compra, 
+            self.preco_unitario, 
+            self.total_produto,
+            self.forma_pagamento)
+
+            self.produtos.append(tupla)
+        
+            print(f'\ntransacao: {self.produtos}\n')
         except:
             messagebox.showerror('Aviso','Valor de desconto invalido.')
         
@@ -451,3 +502,4 @@ class Functions(DB,Style):
             self.root_pdv.grab_set()
         else:
             self.root_pdv.destroy()
+

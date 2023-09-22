@@ -160,21 +160,22 @@ class Functions(DB,Style):
         self.desconect_db()
     
     def enter(self, event):
+        try: 
+            self.codigo = self.input_codigo.get()
 
-        self.codigo = self.input_codigo.get()
+            self.conect_db()
 
-        self.conect_db()
+            self.cursor.execute("""SELECT * FROM estoque
+                                WHERE id_produto = (?);""",(self.codigo,))
+            query = self.cursor.fetchall()
+            
+            self.input_descricao.insert(END,query[0][2])
+            
+            self.desconect_db()
 
-        self.cursor.execute("""SELECT * FROM estoque
-                            WHERE id_produto = (?);""",(self.codigo,))
-        query = self.cursor.fetchall()
-        
-        self.input_descricao.insert(END,query[0][2])
-        
-        self.desconect_db()
-
-        self.input_quantidade.focus()
-
+            self.input_quantidade.focus()
+        except: 
+            messagebox.showerror('Erro','Produto não encontrado!')
     def exportar_transacoes(self):
         
         self.conect_db()

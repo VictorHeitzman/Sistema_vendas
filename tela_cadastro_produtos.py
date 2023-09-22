@@ -117,13 +117,23 @@ class Screen_products_cadastre(Functions, Style):
 
 
          # -------------------- Button Delete ------------------------------------
-        self.button_salvar = Button(self.root_products_cadastre,
+        self.button_delete = Button(self.root_products_cadastre,
                                     text='Deletar',
                                  bg=self.collor_button,
                                  fg='White',
                                  font=self.font,
                                  command=self.delete_product)
-        self.button_salvar.place(relheight=0.05,relwidth=0.10,rely=0.39,relx=0.15)
+        self.button_delete.place(relheight=0.05,relwidth=0.10,rely=0.39,relx=0.15)
+        # -------------------------------------------------------------------
+
+        # -------------------- Button Delete ------------------------------------
+        self.button_alterar = Button(self.root_products_cadastre,
+                                    text='Alterar',
+                                 bg=self.collor_button,
+                                 fg='White',
+                                 font=self.font,
+                                 command=self.alterar_descricao)
+        self.button_alterar.place(relheight=0.05,relwidth=0.10,rely=0.39,relx=0.27)
         # -------------------------------------------------------------------
 
 

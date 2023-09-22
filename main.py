@@ -41,6 +41,5 @@ class Screen_menu(Functions,Style):
         self.icone_nf = Button(self.root_menu, text="Nota Fiscal", font=self.font_img,fg='White', compound='bottom',image=self.nf,background=self.background,bd=0,command=self.screen_nf)
         self.icone_nf.place(relheight=0.40,relwidth=0.40,relx=0.55,rely=0.55)
    
-
 if __name__ == '__main__':
     root = Screen_menu()

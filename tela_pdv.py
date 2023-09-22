@@ -20,7 +20,7 @@ class Screen_pdv(Functions,Style):
         self.root_pdv.title('PDV')
         self.root_pdv.config(background=self.background)
         self.root_pdv.iconbitmap('Config\img\icon_pdv.ico')
-        self.root_pdv.resizable(False,False)
+
         self.root_pdv.geometry('800x600+250+50')
         # self.root_pdv.attributes('-fullscreen',True)
 
