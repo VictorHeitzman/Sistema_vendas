@@ -49,6 +49,8 @@ class Screen_stock(Functions, Style):
 
         self.input_descricao = Entry(self.root_stock)
         self.input_descricao.place(relheight=0.04,relwidth=0.42,relx=0.20,rely=0.10)
+        
+        self.input_descricao.bind('<Return>',self.enter_treeview)
 # ----------------------------------- ---------------------------------------------------
 
 # ----------------------------------- quantidade ---------------------------------------

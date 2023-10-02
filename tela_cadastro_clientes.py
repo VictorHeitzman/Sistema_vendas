@@ -49,6 +49,8 @@ class Screen_cadastro_cliente(Functions,Style):
 
         self.input_nome = Entry(self.root_cadastro_cliente)
         self.input_nome.place(relheight=0.05,relwidth=0.50, relx=0.25,rely=0.20)
+
+        self.input_nome.bind('<Return>',self.enter)
     # --------------------------------------------------------------------
         
     # --------------------------- Endereço ---------------------------------

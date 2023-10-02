@@ -160,22 +160,50 @@ class Functions(DB,Style):
         self.desconect_db()
     
     def enter(self, event):
-        try: 
+        # try: 
             self.codigo = self.input_codigo.get()
 
             self.conect_db()
 
-            self.cursor.execute("""SELECT * FROM estoque
-                                WHERE id_produto = (?);""",(self.codigo,))
+            self.cursor.execute("""SELECT p.id, p.descricao_produto,  e.estoque, p.ultimo_preco_compra, p.ultimo_preco_venda
+                                FROM produtos as p
+                                INNER JOIN estoque e
+                                on p.id = e.id_produto
+                                WHERE p.id = (?);""",(self.codigo,))
             query = self.cursor.fetchall()
+
+            print(query)
             
-            self.input_descricao.insert(END,query[0][2])
-            
+            self.input_descricao.insert(END,query[0][1])
+            self.input_quantidade.insert(END, query[0][2])
+            if len(query[0]) > 2:
+                self.input_preco_compra.insert(END, query[0][3])
+                self.input_preco_venda.insert(END, query[0][4])
+
             self.desconect_db()
 
             self.input_quantidade.focus()
-        except: 
+        # except: 
+        #     messagebox.showerror('Erro','Produto não encontrado!')
+
+    def enter_treeview(self, event):
+        try:
+            self.descricao = str(self.input_descricao.get()).upper()
+
+            self.conect_db()
+
+            query = self.cursor.execute(f"""SELECT * FROM estoque
+                                        WHERE descricao LIKE "%{self.descricao}%";""")
+            
+            self.treeview_estoque.delete(*self.treeview_estoque.get_children())
+            
+            for i in query:
+                self.treeview_estoque.insert('',END,values=i)
+            
+            self.desconect_db()
+        except:
             messagebox.showerror('Erro','Produto não encontrado!')
+
     def exportar_transacoes(self):
         
         self.conect_db()

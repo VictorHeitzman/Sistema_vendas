@@ -10,12 +10,15 @@ class Functions(DB,Style):
         self.id = str(self.input_id.get())
         self.nome = str(self.input_nome.get()).upper()
         self.endereco = str(self.input_endereco.get()).upper()
-        self.telefone = int(self.input_telefone.get())
+        self.telefone = str(self.input_telefone.get())
 
         print(f'Nome: {self.nome}')
         print(f'Endereço: {self.endereco}')
         print(f'Telefone: {self.telefone}')
 
+    def enter(self, event):
+        self.salvar()
+                
     def salvar(self):
 
         # try:
